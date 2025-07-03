@@ -53,14 +53,18 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
-				// Custom learning app colors
+				// Enhanced learning app colors for mobile appeal
 				learning: {
-					primary: '#6366F1',
-					secondary: '#06B6D4', 
-					accent: '#F59E0B',
-					success: '#10B981',
-					purple: '#8B5CF6',
-					pink: '#EC4899'
+					primary: '#8B5CF6',    // Purple
+					secondary: '#06B6D4',  // Cyan
+					accent: '#F59E0B',     // Amber
+					success: '#10B981',    // Emerald
+					purple: '#A855F7',     // Bright Purple
+					pink: '#EC4899',       // Pink
+					blue: '#3B82F6',       // Blue
+					green: '#22C55E',      // Green
+					orange: '#F97316',     // Orange
+					red: '#EF4444'         // Red
 				}
 			},
 			borderRadius: {
@@ -88,6 +92,18 @@ export default {
 				'float': {
 					'0%, 100%': { transform: 'translateY(0px)' },
 					'50%': { transform: 'translateY(-10px)' }
+				},
+				'bounce-slow': {
+					'0%, 100%': { transform: 'translateY(0)' },
+					'50%': { transform: 'translateY(-5px)' }
+				},
+				'pulse-glow': {
+					'0%, 100%': { boxShadow: '0 0 5px rgba(139, 92, 246, 0.5)' },
+					'50%': { boxShadow: '0 0 20px rgba(139, 92, 246, 0.8)' }
+				},
+				'wiggle': {
+					'0%, 100%': { transform: 'rotate(-3deg)' },
+					'50%': { transform: 'rotate(3deg)' }
 				}
 			},
 			animation: {
@@ -95,12 +111,23 @@ export default {
 				'accordion-up': 'accordion-up 0.2s ease-out',
 				'fade-in': 'fade-in 0.6s ease-out',
 				'slide-up': 'slide-up 0.4s ease-out',
-				'float': 'float 3s ease-in-out infinite'
+				'float': 'float 3s ease-in-out infinite',
+				'bounce-slow': 'bounce-slow 2s ease-in-out infinite',
+				'pulse-glow': 'pulse-glow 2s ease-in-out infinite',
+				'wiggle': 'wiggle 1s ease-in-out infinite'
 			},
 			backgroundImage: {
 				'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-				'gradient-learning': 'linear-gradient(135deg, #6366F1 0%, #06B6D4 100%)',
-				'gradient-card': 'linear-gradient(135deg, #F8FAFC 0%, #E2E8F0 100%)'
+				'gradient-learning': 'linear-gradient(135deg, #8B5CF6 0%, #06B6D4 100%)',
+				'gradient-card': 'linear-gradient(135deg, #F8FAFC 0%, #E2E8F0 100%)',
+				'gradient-mobile': 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+				'gradient-success': 'linear-gradient(135deg, #10B981 0%, #22C55E 100%)',
+				'gradient-warning': 'linear-gradient(135deg, #F59E0B 0%, #F97316 100%)',
+				'gradient-error': 'linear-gradient(135deg, #EF4444 0%, #EC4899 100%)'
+			},
+			fontFamily: {
+				'comic': ['Comic Neue', 'cursive'],
+				'playful': ['Quicksand', 'sans-serif']
 			}
 		}
 	},
