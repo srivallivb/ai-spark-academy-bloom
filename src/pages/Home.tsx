@@ -88,7 +88,8 @@ const Home = () => {
             </h1>
             
             <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto animate-slide-up">
-             Our AI-powered companion transforms learning into an engaging, personalized, and enjoyable experience. Join thousands of students unlocking their full potential every day.
+             Our AI-powered companion transforms learning into an engaging, personalized, and enjoyable experience. 
+              Join thousands of students unlocking their full potential every day.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center animate-slide-up">
