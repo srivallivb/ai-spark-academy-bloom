@@ -22,6 +22,7 @@ const Chat = () => {
     }
   ]);
   const [inputText, setInputText] = useState('');
+  const [messages, setMessages] = useState<{ from: 'user' | 'bot'; text: string }[]>([]);
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
