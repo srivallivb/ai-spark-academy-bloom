@@ -42,6 +42,7 @@ const Chat = () => {
   ];
 
   const handleSendMessage = async () => {
+     const message = userInput.trim();
     if (!inputText.trim()) return;
 
     const userMessage: Message = {
@@ -51,12 +52,14 @@ const Chat = () => {
       timestamp: new Date()
     };
 
-    setMessages(prev => [...prev, userMessage]);
+    setMessages(prev => [...prev, { from: 'user', text: message }]);
     setInputText('');
     setIsTyping(true);
 
     // Simulate AI response
     setTimeout(() => {
+      setMessages(prev => [...prev, { from: 'bot', text: "I'm your AI buddy, how can I help? 💡" }]);
+    }, 1000);
       const responses = [
         "Great question! Let me break this down for you step by step... 🎯",
         "I love your curiosity! Here's what you need to know... ✨",
