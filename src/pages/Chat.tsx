@@ -60,6 +60,8 @@ const Chat = () => {
     setTimeout(() => {
       setMessages(prev => [...prev, { from: 'bot', text: "I'm your AI buddy, how can I help? 💡" }]);
     }, 1000);
+    setUserInput("");
+  };
       const responses = [
         "Great question! Let me break this down for you step by step... 🎯",
         "I love your curiosity! Here's what you need to know... ✨",
