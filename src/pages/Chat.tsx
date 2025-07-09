@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 import { Send, Bot, User, Sparkles, BookOpen, Lightbulb, Heart, Star } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -22,7 +21,6 @@ const Chat = () => {
     }
   ]);
   const [inputText, setInputText] = useState('');
-  const [messages, setMessages] = useState<{ from: 'user' | 'bot'; text: string }[]>([]);
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -42,7 +40,6 @@ const Chat = () => {
   ];
 
   const handleSendMessage = async () => {
-     const message = userInput.trim();
     if (!inputText.trim()) return;
 
     const userMessage: Message = {
@@ -52,16 +49,12 @@ const Chat = () => {
       timestamp: new Date()
     };
 
-    setMessages(prev => [...prev, { from: 'user', text: message }]);
+    setMessages(prev => [...prev, userMessage]);
     setInputText('');
     setIsTyping(true);
 
     // Simulate AI response
     setTimeout(() => {
-      setMessages(prev => [...prev, { from: 'bot', text: "I'm your AI buddy, how can I help? ðŸ’¡" }]);
-    }, 1000);
-    setUserInput("");
-  };
       const responses = [
         "Great question! Let me break this down for you step by step... ðŸŽ¯",
         "I love your curiosity! Here's what you need to know... âœ¨",
@@ -108,7 +101,7 @@ Want me to explain any part in more detail? I'm here to help you master this! ðŸ
       </div>
 
       {/* Messages Area */}
-      <div className="flex-1 overflow-y-auto p-6 pb-32 md:pb-6 space-y-6">
+      <div className="flex-1 overflow-y-auto p-6 pb-24 md:pb-6 space-y-6">
         {messages.length === 1 && (
           <div className="text-center py-12">
             <div className="w-24 h-24 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-6 animate-float">
@@ -197,15 +190,15 @@ Want me to explain any part in more detail? I'm here to help you master this! ðŸ
         <div ref={messagesEndRef} />
       </div>
 
-      {/* Enhanced Input Area */}
-      <div className="fixed bottom-16 md:bottom-0 left-0 right-0 md:left-72 bg-gradient-to-r from-white/95 to-purple-50/95 backdrop-blur-xl border-t-2 border-purple-200/30 p-6 shadow-2xl">
-        <div className="flex items-center space-x-4">
+      {/* Enhanced Input Area - Fixed positioning */}
+      <div className="fixed bottom-16 md:bottom-0 left-0 right-0 md:left-72 bg-gradient-to-r from-white/95 to-purple-50/95 backdrop-blur-xl border-t-2 border-purple-200/30 p-4 shadow-2xl z-10">
+        <div className="flex items-center space-x-4 max-w-4xl mx-auto">
           <div className="flex-1 relative">
             <Input
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
               placeholder="Ask me anything about your studies... ðŸ¤”âœ¨"
-              className="pr-16 py-4 text-lg rounded-2xl border-2 border-purple-200 focus:border-purple-400 bg-white/90 backdrop-blur-sm shadow-lg"
+              className="pr-16 py-3 text-base rounded-2xl border-2 border-purple-200 focus:border-purple-400 bg-white/90 backdrop-blur-sm shadow-lg"
               onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
             />
             <div className="absolute right-4 top-1/2 transform -translate-y-1/2">
@@ -215,7 +208,7 @@ Want me to explain any part in more detail? I'm here to help you master this! ðŸ
           <Button 
             onClick={handleSendMessage}
             disabled={!inputText.trim() || isTyping}
-            className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 rounded-2xl px-6 py-4 shadow-lg transform transition-all hover:scale-105"
+            className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 rounded-2xl px-6 py-3 shadow-lg transform transition-all hover:scale-105"
           >
             <Send size={20} />
           </Button>

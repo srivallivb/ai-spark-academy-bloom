@@ -11,7 +11,8 @@ import {
   ArrowRight,
   Star,
   Zap,
-  Target
+  Target,
+  Bot
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -87,15 +88,21 @@ const Home = () => {
               <span className="bg-gradient-to-r from-purple-600 to-cyan-500 bg-clip-text text-transparent"> AI Assistance</span>
             </h1>
             
-            <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto animate-slide-up">
+            <p className="text-xl text-gray-600 mb-4 max-w-2xl mx-auto animate-slide-up">
              Our AI-powered companion transforms learning into an engaging, personalized, and enjoyable experience. 
               Join thousands of students unlocking their full potential every day.
             </p>
+
+            <p className="text-2xl font-semibold bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent mb-8 animate-fade-in">
+              "Your AI study buddy is just one click away! 🚀✨"
+            </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center animate-slide-up">
-              <Button size="lg" className="bg-gradient-learning hover:opacity-90 px-8" asChild>
+              <Button size="lg" className="bg-gradient-learning hover:opacity-90 px-8 flex items-center space-x-3" asChild>
                 <Link to="/chat">
-                  Start Learning <ArrowRight className="ml-2" size={20} />
+                  <Bot size={24} className="animate-pulse" />
+                  <span>Try AI Chat</span>
+                  <ArrowRight className="ml-2" size={20} />
                 </Link>
               </Button>
               <Button size="lg" variant="outline" className="px-8" asChild>
@@ -173,11 +180,14 @@ const Home = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button size="lg" variant="secondary" className="px-8" asChild>
                 <Link to="/auth">
-                  Start Free Trial <ArrowRight className="ml-2" size={20} />
+                  Get Started <ArrowRight className="ml-2" size={20} />
                 </Link>
               </Button>
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-purple-600 px-8" asChild>
-                <Link to="/chat">Try AI Chat</Link>
+              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-purple-600 px-8 flex items-center space-x-2" asChild>
+                <Link to="/chat">
+                  <Bot size={20} />
+                  <span>Try AI Chat</span>
+                </Link>
               </Button>
             </div>
           </div>
