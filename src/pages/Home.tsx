@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { 
@@ -89,7 +88,7 @@ const Home = () => {
             </h1>
             
             <p className="text-xl text-gray-600 mb-4 max-w-2xl mx-auto animate-slide-up">
-             Our AI-powered companion transforms learning into an engaging, personalized, and enjoyable experience. 
+              Our AI-powered companion transforms learning into an engaging, personalized, and enjoyable experience. 
               Join thousands of students unlocking their full potential every day.
             </p>
 
@@ -177,12 +176,7 @@ const Home = () => {
               Join thousands of students who are already learning smarter with AI
             </p>
             
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" variant="secondary" className="px-8" asChild>
-                <Link to="/auth">
-                  Get Started <ArrowRight className="ml-2" size={20} />
-                </Link>
-              </Button>
+            <div className="flex justify-center">
               <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-purple-600 px-8 flex items-center space-x-2" asChild>
                 <Link to="/chat">
                   <Bot size={20} />
