@@ -1,6 +1,5 @@
-
 import React from 'react';
-import { User, Trophy, BookOpen, Clock, Star, Target, Award, TrendingUp } from 'lucide-react';
+import { User, Trophy, BookOpen, Clock, Star, Target, Award, TrendingUp, LogOut } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
@@ -46,6 +45,12 @@ const Profile = () => {
     { action: 'Completed Quiz', subject: 'Chemistry', time: '3 days ago', score: '9/10' }
   ];
 
+  const handleLogout = () => {
+    // Add logout logic here
+    console.log('User logged out');
+    // You can add actual logout functionality here
+  };
+
   return (
     <div className="md:ml-64 min-h-screen p-6 pb-20 md:pb-6">
       <div className="max-w-6xl mx-auto">
@@ -64,9 +69,19 @@ const Profile = () => {
                 <Badge className="bg-white/20 text-white border-white/30">Quiz Master</Badge>
               </div>
             </div>
-            <Button variant="secondary" className="bg-white/20 border-white/30 text-white hover:bg-white/30">
-              Edit Profile
-            </Button>
+            <div className="flex flex-col space-y-3">
+              <Button variant="secondary" className="bg-white/20 border-white/30 text-white hover:bg-white/30">
+                Edit Profile
+              </Button>
+              <Button 
+                variant="outline" 
+                className="border-red-300 text-red-100 hover:bg-red-500/20 hover:text-white transition-all duration-200 flex items-center space-x-2"
+                onClick={handleLogout}
+              >
+                <LogOut size={16} />
+                <span>Logout</span>
+              </Button>
+            </div>
           </div>
         </div>
 
@@ -196,4 +211,3 @@ const Profile = () => {
 };
 
 export default Profile;
-
