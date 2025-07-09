@@ -1,17 +1,24 @@
-import React from 'react';
-import { User, Trophy, BookOpen, Clock, Star, Target, Award, TrendingUp, LogOut } from 'lucide-react';
+import React, { useState } from 'react';
+import { User, Trophy, BookOpen, Clock, Star, Target, Award, TrendingUp, LogOut, Edit, Calendar, GraduationCap, Mail } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 
 const Profile = () => {
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  
   const user = {
     name: 'Alex Johnson',
     email: 'alex.johnson@example.com',
     grade: '10th Grade',
     joinDate: 'January 2024',
-    avatar: '/placeholder.svg'
+    avatar: '/placeholder.svg',
+    dateOfBirth: '2007-05-15',
+    education: 'High School Student'
   };
 
   const stats = [
@@ -51,6 +58,12 @@ const Profile = () => {
     // You can add actual logout functionality here
   };
 
+  const handleSaveProfile = () => {
+    // Add save profile logic here
+    console.log('Profile saved');
+    setIsEditDialogOpen(false);
+  };
+
   return (
     <div className="md:ml-64 min-h-screen p-6 pb-20 md:pb-6">
       <div className="max-w-6xl mx-auto">
@@ -70,17 +83,79 @@ const Profile = () => {
               </div>
             </div>
             <div className="flex flex-col space-y-3">
-              <Button variant="secondary" className="bg-white/20 border-white/30 text-white hover:bg-white/30">
-                Edit Profile
-              </Button>
-              <Button 
-                variant="outline" 
-                className="border-red-300 text-red-100 hover:bg-red-500/20 hover:text-white transition-all duration-200 flex items-center space-x-2"
-                onClick={handleLogout}
-              >
-                <LogOut size={16} />
-                <span>Logout</span>
-              </Button>
+              <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
+                <DialogTrigger asChild>
+                  <Button variant="secondary" className="bg-white/20 border-white/30 text-white hover:bg-white/30">
+                    <Edit size={16} className="mr-2" />
+                    Edit Profile
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="sm:max-w-[425px]">
+                  <DialogHeader>
+                    <DialogTitle className="text-xl font-bold text-center">Edit Profile</DialogTitle>
+                  </DialogHeader>
+                  <div className="grid gap-4 py-4">
+                    <div className="grid grid-cols-4 items-center gap-4">
+                      <Label htmlFor="name" className="text-right flex items-center">
+                        <User size={16} className="mr-1" />
+                        Name
+                      </Label>
+                      <Input
+                        id="name"
+                        defaultValue={user.name}
+                        className="col-span-3"
+                      />
+                    </div>
+                    <div className="grid grid-cols-4 items-center gap-4">
+                      <Label htmlFor="email" className="text-right flex items-center">
+                        <Mail size={16} className="mr-1" />
+                        Email
+                      </Label>
+                      <Input
+                        id="email"
+                        defaultValue={user.email}
+                        className="col-span-3"
+                      />
+                    </div>
+                    <div className="grid grid-cols-4 items-center gap-4">
+                      <Label htmlFor="dob" className="text-right flex items-center">
+                        <Calendar size={16} className="mr-1" />
+                        DOB
+                      </Label>
+                      <Input
+                        id="dob"
+                        type="date"
+                        defaultValue={user.dateOfBirth}
+                        className="col-span-3"
+                      />
+                    </div>
+                    <div className="grid grid-cols-4 items-center gap-4">
+                      <Label htmlFor="education" className="text-right flex items-center">
+                        <GraduationCap size={16} className="mr-1" />
+                        Education
+                      </Label>
+                      <Input
+                        id="education"
+                        defaultValue={user.education}
+                        className="col-span-3"
+                      />
+                    </div>
+                  </div>
+                  <div className="flex flex-col space-y-3">
+                    <Button onClick={handleSaveProfile} className="w-full">
+                      Save Changes
+                    </Button>
+                    <Button 
+                      variant="outline" 
+                      className="w-full bg-white/20 border-white/30 text-gray-700 hover:bg-gray-100 transition-all duration-200 flex items-center justify-center space-x-2"
+                      onClick={handleLogout}
+                    >
+                      <LogOut size={16} />
+                      <span>Logout</span>
+                    </Button>
+                  </div>
+                </DialogContent>
+              </Dialog>
             </div>
           </div>
         </div>
