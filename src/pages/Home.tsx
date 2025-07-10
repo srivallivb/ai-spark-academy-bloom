@@ -1,6 +1,6 @@
 
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useRef } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { 
   Brain, 
   Sparkles, 
@@ -20,12 +20,17 @@ import {
   FileText,
   Calculator,
   Globe,
-  Lightbulb
+  Lightbulb,
+  Image
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
 const Home = () => {
+  const navigate = useNavigate();
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const cameraInputRef = useRef<HTMLInputElement>(null);
+
   const features = [
     {
       icon: Brain,
@@ -67,8 +72,56 @@ const Home = () => {
     { title: 'English Grammar', subject: 'English', time: '1 week ago', icon: FileText }
   ];
 
+  const handleFileUpload = async (file: File, source: string) => {
+    if (!file) return;
+
+    // Simulate question extraction from image
+    const extractedQuestion = `I need help with this ${file.type.includes('image') ? 'problem' : 'question'} from my ${source === 'camera' ? 'camera' : 'gallery'}. Please analyze and explain the solution step by step.`;
+    
+    // Navigate to chat with the extracted question
+    navigate('/chat', { 
+      state: { 
+        uploadedFile: file,
+        extractedQuestion: extractedQuestion,
+        source: source
+      }
+    });
+  };
+
+  const handleGalleryUpload = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleCameraUpload = () => {
+    cameraInputRef.current?.click();
+  };
+
+  const onFileChange = (event: React.ChangeEvent<HTMLInputElement>, source: string) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      handleFileUpload(file, source);
+    }
+  };
+
   return (
     <div className="min-h-screen">
+      {/* Hidden file inputs */}
+      <input
+        ref={fileInputRef}
+        type="file"
+        accept="image/*"
+        onChange={(e) => onFileChange(e, 'gallery')}
+        className="hidden"
+      />
+      <input
+        ref={cameraInputRef}
+        type="file"
+        accept="image/*"
+        capture="environment"
+        onChange={(e) => onFileChange(e, 'camera')}
+        className="hidden"
+      />
+
       {/* Header */}
       <header className="md:ml-64 px-4 py-6 bg-white/80 backdrop-blur-lg border-b border-gray-200">
         <div className="flex items-center justify-between">
@@ -190,24 +243,34 @@ const Home = () => {
                     Smart Question Upload
                   </CardTitle>
                   <CardDescription className="text-gray-600">
-                    Snap a photo of your question and get instant AI-powered solutions
+                    Upload from gallery or device to get instant AI-powered solutions
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="flex items-center space-x-3 p-3 bg-blue-50 rounded-lg">
-                    <Upload className="text-blue-600" size={20} />
-                    <span className="text-sm text-blue-700 font-medium">Upload from camera or gallery</span>
+                    <Image className="text-blue-600" size={20} />
+                    <span className="text-sm text-blue-700 font-medium">Upload from gallery or device</span>
                   </div>
                   <div className="flex items-center space-x-3 p-3 bg-green-50 rounded-lg">
                     <Zap className="text-green-600" size={20} />
                     <span className="text-sm text-green-700 font-medium">Get instant AI analysis</span>
                   </div>
-                  <Button className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:opacity-90 flex items-center space-x-2" asChild>
-                    <Link to="/chat">
+                  <div className="space-y-2">
+                    <Button 
+                      className="w-full bg-gradient-to-r from-green-500 to-teal-600 hover:opacity-90 flex items-center space-x-2"
+                      onClick={handleGalleryUpload}
+                    >
+                      <Upload size={18} />
+                      <span>Upload from Gallery</span>
+                    </Button>
+                    <Button 
+                      className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:opacity-90 flex items-center space-x-2"
+                      onClick={handleCameraUpload}
+                    >
                       <Camera size={18} />
-                      <span>Try Camera Upload</span>
-                    </Link>
-                  </Button>
+                      <span>Upload from Camera</span>
+                    </Button>
+                  </div>
                 </CardContent>
               </Card>
 
@@ -225,7 +288,7 @@ const Home = () => {
                   </div>
                 </CardHeader>
                 <CardContent className="space-y-3">
-                  {recentlyViewed.map((item, index) => {
+                  {recentlyViewed.slice(0, 3).map((item, index) => {
                     const Icon = item.icon;
                     return (
                       <div key={index} className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 transition-colors cursor-pointer group">
@@ -243,12 +306,11 @@ const Home = () => {
                       </div>
                     );
                   })}
-                  <Button variant="outline" className="w-full mt-4" asChild>
-                    <Link to="/notes">
-                      <span>View All History</span>
-                      <ArrowRight className="ml-2" size={16} />
-                    </Link>
-                  </Button>
+                  <div className="text-center mt-4 pt-4 border-t border-gray-100">
+                    <span className="text-sm text-gray-500 font-medium">
+                      View All History
+                    </span>
+                  </div>
                 </CardContent>
               </Card>
             </div>

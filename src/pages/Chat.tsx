@@ -1,5 +1,7 @@
+
 import React, { useState, useRef, useEffect } from 'react';
-import { Send, Bot, User, Sparkles, BookOpen, Lightbulb, Heart, Star } from 'lucide-react';
+import { useLocation } from 'react-router-dom';
+import { Send, Bot, User, Sparkles, BookOpen, Lightbulb, Heart, Star, Upload, Image as ImageIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent } from '@/components/ui/card';
@@ -9,9 +11,13 @@ interface Message {
   text: string;
   isUser: boolean;
   timestamp: Date;
+  uploadedFile?: File;
 }
 
 const Chat = () => {
+  const location = useLocation();
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
@@ -23,6 +29,59 @@ const Chat = () => {
   const [inputText, setInputText] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  // Handle uploaded file from Home page
+  useEffect(() => {
+    if (location.state?.uploadedFile && location.state?.extractedQuestion) {
+      const { uploadedFile, extractedQuestion, source } = location.state;
+      
+      // Add user message with uploaded file
+      const userMessage: Message = {
+        id: Date.now().toString(),
+        text: extractedQuestion,
+        isUser: true,
+        timestamp: new Date(),
+        uploadedFile: uploadedFile
+      };
+
+      setMessages(prev => [...prev, userMessage]);
+      setIsTyping(true);
+
+      // Simulate AI response to uploaded image
+      setTimeout(() => {
+        const aiResponse: Message = {
+          id: (Date.now() + 1).toString(),
+          text: `Great! I can see you've uploaded an image from your ${source}! 📸✨
+
+I'm analyzing your question step by step:
+
+🔍 **What I can see:** This appears to be a ${uploadedFile.type.includes('image') ? 'mathematical problem or educational content' : 'learning material'} that needs explanation.
+
+📚 **My Solution Approach:**
+1. First, I'll break down the core concepts
+2. Then I'll provide step-by-step explanations  
+3. Finally, I'll give you tips to remember this better
+
+💡 **Detailed Explanation:**
+Based on the image you shared, let me walk you through the solution process. This type of problem requires understanding the fundamental principles and applying them systematically.
+
+Would you like me to:
+- Explain any specific part in more detail?
+- Show similar practice problems?
+- Give you memory tricks for this topic?
+
+I'm here to make sure you completely understand this! 🚀`,
+          isUser: false,
+          timestamp: new Date()
+        };
+        setMessages(prev => [...prev, aiResponse]);
+        setIsTyping(false);
+      }, 2000);
+
+      // Clear location state
+      window.history.replaceState({}, document.title);
+    }
+  }, [location.state]);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -81,8 +140,62 @@ Want me to explain any part in more detail? I'm here to help you master this! �
     setInputText(question.replace(/[🌱📐💻⚗️🌿🔢⚡🧪]/g, '').trim());
   };
 
+  const handleFileUpload = () => {
+    fileInputRef.current?.click();
+  };
+
+  const onFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const userMessage: Message = {
+        id: Date.now().toString(),
+        text: `I've uploaded an image. Please analyze this and help me understand the solution step by step.`,
+        isUser: true,
+        timestamp: new Date(),
+        uploadedFile: file
+      };
+
+      setMessages(prev => [...prev, userMessage]);
+      setIsTyping(true);
+
+      // Simulate AI response
+      setTimeout(() => {
+        const aiResponse: Message = {
+          id: (Date.now() + 1).toString(),
+          text: `Perfect! I can see your uploaded image! 📸✨
+
+Let me analyze this step by step:
+
+🔍 **Image Analysis:** I can see this is a learning material that needs explanation.
+
+📚 **Step-by-Step Solution:**
+1. Let me identify the key concepts in your image
+2. I'll break down the problem systematically
+3. Then provide a clear, easy-to-understand explanation
+
+💡 **Detailed Explanation:** Based on what I can see in your image, this involves fundamental concepts that I'll explain in simple terms with examples.
+
+Would you like me to focus on any specific part of this problem? I'm here to make sure you understand everything perfectly! 🚀`,
+          isUser: false,
+          timestamp: new Date()
+        };
+        setMessages(prev => [...prev, aiResponse]);
+        setIsTyping(false);
+      }, 2000);
+    }
+  };
+
   return (
     <div className="md:ml-72 flex flex-col h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-pink-50">
+      {/* Hidden file input */}
+      <input
+        ref={fileInputRef}
+        type="file"
+        accept="image/*"
+        onChange={onFileChange}
+        className="hidden"
+      />
+
       {/* Enhanced Header */}
       <div className="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-6 py-6 shadow-lg">
         <div className="flex items-center space-x-4">
@@ -157,7 +270,15 @@ Want me to explain any part in more detail? I'm here to help you master this! �
                   ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white' 
                   : 'bg-white border-2 border-purple-100'
               }`}>
-                <p className={`text-sm leading-relaxed ${message.isUser ? 'text-white' : 'text-gray-800'}`}>
+                {message.uploadedFile && (
+                  <div className="mb-3 p-3 bg-white/20 rounded-2xl flex items-center space-x-2">
+                    <ImageIcon size={16} className={message.isUser ? 'text-white' : 'text-gray-600'} />
+                    <span className={`text-xs ${message.isUser ? 'text-white' : 'text-gray-600'}`}>
+                      Image uploaded: {message.uploadedFile.name}
+                    </span>
+                  </div>
+                )}
+                <p className={`text-sm leading-relaxed whitespace-pre-line ${message.isUser ? 'text-white' : 'text-gray-800'}`}>
                   {message.text}
                 </p>
                 <p className={`text-xs mt-2 ${
@@ -193,6 +314,13 @@ Want me to explain any part in more detail? I'm here to help you master this! �
       {/* Enhanced Input Area - Fixed positioning */}
       <div className="fixed bottom-16 md:bottom-0 left-0 right-0 md:left-72 bg-gradient-to-r from-white/95 to-purple-50/95 backdrop-blur-xl border-t-2 border-purple-200/30 p-4 shadow-2xl z-10">
         <div className="flex items-center space-x-4 max-w-4xl mx-auto">
+          <Button
+            onClick={handleFileUpload}
+            variant="outline"
+            className="flex-shrink-0 rounded-2xl border-2 border-purple-200 hover:border-purple-400 p-3"
+          >
+            <Upload size={20} className="text-purple-600" />
+          </Button>
           <div className="flex-1 relative">
             <Input
               value={inputText}
