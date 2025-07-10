@@ -7,6 +7,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { Badge } from '@/components/ui/badge';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
+import { Input } from '@/components/ui/input';
 
 const searchHistory = [
   { query: 'Physics equations', time: '2 hours ago', type: 'Search' },
@@ -20,14 +21,43 @@ export const SettingsDropdown: React.FC = () => {
   const [isAccountSettingsOpen, setIsAccountSettingsOpen] = useState(false);
   const [isFeedbackOpen, setIsFeedbackOpen] = useState(false);
   const [isAboutOpen, setIsAboutOpen] = useState(false);
+  const [isEmailEditOpen, setIsEmailEditOpen] = useState(false);
+  const [isPasswordEditOpen, setIsPasswordEditOpen] = useState(false);
+  const [isNicknameEditOpen, setIsNicknameEditOpen] = useState(false);
+  const [feedbackText, setFeedbackText] = useState('');
+  const [uploadedImage, setUploadedImage] = useState<File | null>(null);
 
   const handleLogout = () => {
     console.log('User logged out');
   };
 
   const handleSubmitFeedback = () => {
-    console.log('Feedback submitted');
+    console.log('Feedback submitted:', feedbackText);
+    console.log('Uploaded image:', uploadedImage);
     setIsFeedbackOpen(false);
+    setFeedbackText('');
+    setUploadedImage(null);
+  };
+
+  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      setUploadedImage(file);
+      console.log('Image uploaded:', file.name);
+    }
+  };
+
+  const handleProfilePictureSelect = () => {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/*';
+    input.onchange = (e) => {
+      const file = (e.target as HTMLInputElement).files?.[0];
+      if (file) {
+        console.log('Profile picture selected:', file.name);
+      }
+    };
+    input.click();
   };
 
   return (
@@ -106,13 +136,19 @@ export const SettingsDropdown: React.FC = () => {
                 Account
               </h3>
               <div className="space-y-3 ml-7">
-                <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                <div 
+                  className="flex items-center justify-between p-3 bg-gray-50 rounded-lg cursor-pointer hover:bg-blue-50 hover:border-blue-200 border-2 border-transparent transition-all duration-200"
+                  onClick={() => setIsEmailEditOpen(true)}
+                >
                   <div className="flex items-center">
                     <Mail className="mr-2 h-4 w-4 text-gray-600" />
                     <span className="text-gray-700">Email: alex.johnson@example.com</span>
                   </div>
                 </div>
-                <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100 transition-colors duration-200">
+                <div 
+                  className="flex items-center justify-between p-3 bg-gray-50 rounded-lg cursor-pointer hover:bg-blue-50 hover:border-blue-200 border-2 border-transparent transition-all duration-200"
+                  onClick={() => setIsPasswordEditOpen(true)}
+                >
                   <div className="flex items-center">
                     <Key className="mr-2 h-4 w-4 text-gray-600" />
                     <span className="text-gray-700">Set Password</span>
@@ -127,13 +163,19 @@ export const SettingsDropdown: React.FC = () => {
                 Profile
               </h3>
               <div className="space-y-3 ml-7">
-                <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100 transition-colors duration-200">
+                <div 
+                  className="flex items-center justify-between p-3 bg-gray-50 rounded-lg cursor-pointer hover:bg-blue-50 hover:border-blue-200 border-2 border-transparent transition-all duration-200"
+                  onClick={() => setIsNicknameEditOpen(true)}
+                >
                   <div className="flex items-center">
                     <User className="mr-2 h-4 w-4 text-gray-600" />
                     <span className="text-gray-700">Nickname</span>
                   </div>
                 </div>
-                <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100 transition-colors duration-200">
+                <div 
+                  className="flex items-center justify-between p-3 bg-gray-50 rounded-lg cursor-pointer hover:bg-blue-50 hover:border-blue-200 border-2 border-transparent transition-all duration-200"
+                  onClick={handleProfilePictureSelect}
+                >
                   <div className="flex items-center">
                     <Image className="mr-2 h-4 w-4 text-gray-600" />
                     <span className="text-gray-700">Profile Picture</span>
@@ -170,6 +212,72 @@ export const SettingsDropdown: React.FC = () => {
         </DialogContent>
       </Dialog>
 
+      {/* Email Edit Dialog */}
+      <Dialog open={isEmailEditOpen} onOpenChange={setIsEmailEditOpen}>
+        <DialogContent className="sm:max-w-[400px] bg-white">
+          <DialogHeader>
+            <DialogTitle className="text-xl font-bold text-gray-800">Edit Email</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4">
+            <div>
+              <Label htmlFor="current-email" className="text-sm font-medium text-gray-700">Current Email</Label>
+              <Input id="current-email" value="alex.johnson@example.com" disabled className="mt-2" />
+            </div>
+            <div>
+              <Label htmlFor="new-email" className="text-sm font-medium text-gray-700">New Email</Label>
+              <Input id="new-email" placeholder="Enter new email" className="mt-2" />
+            </div>
+            <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white">
+              Update Email
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* Password Edit Dialog */}
+      <Dialog open={isPasswordEditOpen} onOpenChange={setIsPasswordEditOpen}>
+        <DialogContent className="sm:max-w-[400px] bg-white">
+          <DialogHeader>
+            <DialogTitle className="text-xl font-bold text-gray-800">Set Password</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4">
+            <div>
+              <Label htmlFor="current-password" className="text-sm font-medium text-gray-700">Current Password</Label>
+              <Input id="current-password" type="password" placeholder="Enter current password" className="mt-2" />
+            </div>
+            <div>
+              <Label htmlFor="new-password" className="text-sm font-medium text-gray-700">New Password</Label>
+              <Input id="new-password" type="password" placeholder="Enter new password" className="mt-2" />
+            </div>
+            <div>
+              <Label htmlFor="confirm-password" className="text-sm font-medium text-gray-700">Confirm Password</Label>
+              <Input id="confirm-password" type="password" placeholder="Confirm new password" className="mt-2" />
+            </div>
+            <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white">
+              Update Password
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* Nickname Edit Dialog */}
+      <Dialog open={isNicknameEditOpen} onOpenChange={setIsNicknameEditOpen}>
+        <DialogContent className="sm:max-w-[400px] bg-white">
+          <DialogHeader>
+            <DialogTitle className="text-xl font-bold text-gray-800">Edit Nickname</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4">
+            <div>
+              <Label htmlFor="nickname" className="text-sm font-medium text-gray-700">Nickname</Label>
+              <Input id="nickname" placeholder="Enter your nickname" className="mt-2" />
+            </div>
+            <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white">
+              Update Nickname
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
+
       {/* Feedback Dialog */}
       <Dialog open={isFeedbackOpen} onOpenChange={setIsFeedbackOpen}>
         <DialogContent className="sm:max-w-[500px] bg-white">
@@ -188,15 +296,29 @@ export const SettingsDropdown: React.FC = () => {
                 id="feedback"
                 placeholder="Tell us about your experience..."
                 className="mt-2 min-h-[120px] border-gray-300 focus:border-blue-500"
+                value={feedbackText}
+                onChange={(e) => setFeedbackText(e.target.value)}
               />
             </div>
             <div>
               <Label htmlFor="picture" className="text-sm font-medium text-gray-700">
                 Upload Picture (optional)
               </Label>
-              <div className="mt-2 border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-gray-400 cursor-pointer transition-colors duration-200">
+              <div 
+                className="mt-2 border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-gray-400 cursor-pointer transition-colors duration-200"
+                onClick={() => document.getElementById('file-upload')?.click()}
+              >
                 <Upload className="mx-auto h-12 w-12 text-gray-400" />
-                <p className="mt-2 text-sm text-gray-600">Click to upload or drag and drop</p>
+                <p className="mt-2 text-sm text-gray-600">
+                  {uploadedImage ? `Selected: ${uploadedImage.name}` : 'Click to upload or drag and drop'}
+                </p>
+                <input
+                  id="file-upload"
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  onChange={handleImageUpload}
+                />
               </div>
             </div>
             <Button onClick={handleSubmitFeedback} className="w-full bg-blue-600 hover:bg-blue-700 text-white transition-colors duration-200">
