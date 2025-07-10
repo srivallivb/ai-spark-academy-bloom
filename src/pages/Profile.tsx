@@ -1,5 +1,6 @@
+
 import React, { useState } from 'react';
-import { User, Trophy, BookOpen, Clock, Star, Target, Award, TrendingUp, LogOut, Edit, Calendar, GraduationCap, Mail } from 'lucide-react';
+import { User, Trophy, BookOpen, Clock, Star, Target, Award, TrendingUp, LogOut, Edit, Calendar, GraduationCap, Mail, Settings, History, HelpCircle, Info, Shield, Key, Image, Link2, MessageSquare, Upload } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
@@ -7,9 +8,15 @@ import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuSeparator, DropdownMenuLabel } from '@/components/ui/dropdown-menu';
 
 const Profile = () => {
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  const [isHistoryDialogOpen, setIsHistoryDialogOpen] = useState(false);
+  const [isAccountSettingsOpen, setIsAccountSettingsOpen] = useState(false);
+  const [isFeedbackDialogOpen, setIsFeedbackDialogOpen] = useState(false);
+  const [isAboutDialogOpen, setIsAboutDialogOpen] = useState(false);
   
   const user = {
     name: 'Alex Johnson',
@@ -52,16 +59,25 @@ const Profile = () => {
     { action: 'Completed Quiz', subject: 'Chemistry', time: '3 days ago', score: '9/10' }
   ];
 
+  const searchHistory = [
+    { query: 'Physics equations', time: '2 hours ago', type: 'Search' },
+    { query: 'Biology cell structure', time: '1 day ago', type: 'Quiz' },
+    { query: 'Math derivatives', time: '2 days ago', type: 'Chat' },
+    { query: 'Chemistry periodic table', time: '3 days ago', type: 'Notes' }
+  ];
+
   const handleLogout = () => {
-    // Add logout logic here
     console.log('User logged out');
-    // You can add actual logout functionality here
   };
 
   const handleSaveProfile = () => {
-    // Add save profile logic here
     console.log('Profile saved');
     setIsEditDialogOpen(false);
+  };
+
+  const handleSubmitFeedback = () => {
+    console.log('Feedback submitted');
+    setIsFeedbackDialogOpen(false);
   };
 
   return (
@@ -152,6 +168,213 @@ const Profile = () => {
                     >
                       <LogOut size={16} />
                       <span>Logout</span>
+                    </Button>
+                  </div>
+                </DialogContent>
+              </Dialog>
+
+              {/* Settings Dropdown */}
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="secondary" className="bg-white/20 border-white/30 text-white hover:bg-white/30">
+                    <Settings size={16} className="mr-2" />
+                    Settings
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-56 bg-white">
+                  <DropdownMenuLabel>Options</DropdownMenuLabel>
+                  
+                  <DropdownMenuItem onClick={() => setIsHistoryDialogOpen(true)}>
+                    <History className="mr-2 h-4 w-4" />
+                    <span>History</span>
+                  </DropdownMenuItem>
+                  
+                  <DropdownMenuItem onClick={() => setIsAccountSettingsOpen(true)}>
+                    <Settings className="mr-2 h-4 w-4" />
+                    <span>Account Settings</span>
+                  </DropdownMenuItem>
+                  
+                  <DropdownMenuItem onClick={() => setIsFeedbackDialogOpen(true)}>
+                    <MessageSquare className="mr-2 h-4 w-4" />
+                    <span>Feedback</span>
+                  </DropdownMenuItem>
+                  
+                  <DropdownMenuSeparator />
+                  
+                  <DropdownMenuItem onClick={() => setIsAboutDialogOpen(true)}>
+                    <Info className="mr-2 h-4 w-4" />
+                    <span>About</span>
+                  </DropdownMenuItem>
+                  
+                  <DropdownMenuSeparator />
+                  
+                  <DropdownMenuItem onClick={handleLogout} className="text-red-600">
+                    <LogOut className="mr-2 h-4 w-4" />
+                    <span>Logout</span>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+
+              {/* History Dialog */}
+              <Dialog open={isHistoryDialogOpen} onOpenChange={setIsHistoryDialogOpen}>
+                <DialogContent className="sm:max-w-[500px]">
+                  <DialogHeader>
+                    <DialogTitle className="text-xl font-bold">Search History</DialogTitle>
+                  </DialogHeader>
+                  <div className="space-y-4 max-h-96 overflow-y-auto">
+                    {searchHistory.map((item, index) => (
+                      <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 cursor-pointer">
+                        <div>
+                          <p className="font-medium text-gray-800">{item.query}</p>
+                          <p className="text-sm text-gray-600">{item.type} • {item.time}</p>
+                        </div>
+                        <History className="h-4 w-4 text-gray-400" />
+                      </div>
+                    ))}
+                  </div>
+                </DialogContent>
+              </Dialog>
+
+              {/* Account Settings Dialog */}
+              <Dialog open={isAccountSettingsOpen} onOpenChange={setIsAccountSettingsOpen}>
+                <DialogContent className="sm:max-w-[500px]">
+                  <DialogHeader>
+                    <DialogTitle className="text-xl font-bold">Account Settings</DialogTitle>
+                  </DialogHeader>
+                  <div className="space-y-6">
+                    {/* Account Section */}
+                    <div>
+                      <h3 className="text-lg font-semibold mb-3 flex items-center">
+                        <User className="mr-2 h-5 w-5" />
+                        Account
+                      </h3>
+                      <div className="space-y-3 ml-7">
+                        <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                          <div className="flex items-center">
+                            <Mail className="mr-2 h-4 w-4" />
+                            <span>Email: {user.email}</span>
+                          </div>
+                        </div>
+                        <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100">
+                          <div className="flex items-center">
+                            <Key className="mr-2 h-4 w-4" />
+                            <span>Set Password</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Profile Section */}
+                    <div>
+                      <h3 className="text-lg font-semibold mb-3 flex items-center">
+                        <User className="mr-2 h-5 w-5" />
+                        Profile
+                      </h3>
+                      <div className="space-y-3 ml-7">
+                        <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100">
+                          <div className="flex items-center">
+                            <User className="mr-2 h-4 w-4" />
+                            <span>Nickname</span>
+                          </div>
+                        </div>
+                        <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100">
+                          <div className="flex items-center">
+                            <Image className="mr-2 h-4 w-4" />
+                            <span>Profile Picture</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Connected Accounts Section */}
+                    <div>
+                      <h3 className="text-lg font-semibold mb-3 flex items-center">
+                        <Link2 className="mr-2 h-5 w-5" />
+                        Connected Accounts
+                      </h3>
+                      <div className="space-y-3 ml-7">
+                        <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                          <div className="flex items-center">
+                            <div className="w-4 h-4 mr-2 bg-red-500 rounded"></div>
+                            <span>Google Account Connected</span>
+                          </div>
+                          <Badge className="bg-green-100 text-green-800">Connected</Badge>
+                        </div>
+                      </div>
+                    </div>
+
+                    <Button 
+                      onClick={handleLogout} 
+                      variant="outline" 
+                      className="w-full mt-6 text-red-600 border-red-200 hover:bg-red-50"
+                    >
+                      <LogOut className="mr-2 h-4 w-4" />
+                      Logout
+                    </Button>
+                  </div>
+                </DialogContent>
+              </Dialog>
+
+              {/* Feedback Dialog */}
+              <Dialog open={isFeedbackDialogOpen} onOpenChange={setIsFeedbackDialogOpen}>
+                <DialogContent className="sm:max-w-[500px]">
+                  <DialogHeader>
+                    <DialogTitle className="text-xl font-bold">Feedback</DialogTitle>
+                  </DialogHeader>
+                  <div className="space-y-4">
+                    <p className="text-gray-600">
+                      We love to hear your suggestions or help you with any issue you've come across.
+                    </p>
+                    <div>
+                      <Label htmlFor="feedback" className="text-sm font-medium">
+                        How can we improve to make your experience better?
+                      </Label>
+                      <Textarea 
+                        id="feedback"
+                        placeholder="Tell us about your experience..."
+                        className="mt-2 min-h-[120px]"
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="picture" className="text-sm font-medium">
+                        Upload Picture (optional)
+                      </Label>
+                      <div className="mt-2 border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-gray-400 cursor-pointer">
+                        <Upload className="mx-auto h-12 w-12 text-gray-400" />
+                        <p className="mt-2 text-sm text-gray-600">Click to upload or drag and drop</p>
+                      </div>
+                    </div>
+                    <Button onClick={handleSubmitFeedback} className="w-full">
+                      Submit Feedback
+                    </Button>
+                  </div>
+                </DialogContent>
+              </Dialog>
+
+              {/* About Dialog */}
+              <Dialog open={isAboutDialogOpen} onOpenChange={setIsAboutDialogOpen}>
+                <DialogContent className="sm:max-w-[400px]">
+                  <DialogHeader>
+                    <DialogTitle className="text-xl font-bold">About</DialogTitle>
+                  </DialogHeader>
+                  <div className="space-y-4">
+                    <div className="space-y-3">
+                      <div className="flex items-center p-3 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100">
+                        <Shield className="mr-3 h-4 w-4" />
+                        <span>Terms and Conditions</span>
+                      </div>
+                      <div className="flex items-center p-3 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100">
+                        <Shield className="mr-3 h-4 w-4" />
+                        <span>Privacy Policy</span>
+                      </div>
+                    </div>
+                    <Button 
+                      onClick={handleLogout} 
+                      variant="outline" 
+                      className="w-full text-red-600 border-red-200 hover:bg-red-50"
+                    >
+                      <LogOut className="mr-2 h-4 w-4" />
+                      Logout
                     </Button>
                   </div>
                 </DialogContent>
