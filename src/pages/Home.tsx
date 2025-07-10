@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { 
@@ -11,7 +12,15 @@ import {
   Star,
   Zap,
   Target,
-  Bot
+  Bot,
+  Camera,
+  Upload,
+  Eye,
+  Clock,
+  FileText,
+  Calculator,
+  Globe,
+  Lightbulb
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -49,6 +58,13 @@ const Home = () => {
     { number: '95%', label: 'Success Rate' },
     { number: '24/7', label: 'AI Support' },
     { number: '500+', label: 'Topics Covered' }
+  ];
+
+  const recentlyViewed = [
+    { title: 'Algebra Equations', subject: 'Mathematics', time: '2 hours ago', icon: Calculator },
+    { title: 'World History', subject: 'History', time: '1 day ago', icon: Globe },
+    { title: 'Physics Laws', subject: 'Physics', time: '3 days ago', icon: Lightbulb },
+    { title: 'English Grammar', subject: 'English', time: '1 week ago', icon: FileText }
   ];
 
   return (
@@ -160,29 +176,81 @@ const Home = () => {
           </div>
         </section>
 
-        {/* CTA Section */}
-        <section className="px-6 py-16 bg-gradient-learning text-white">
-          <div className="max-w-4xl mx-auto text-center">
-            <div className="animate-float mb-6">
-              <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mx-auto">
-                <Zap className="text-white" size={32} />
-              </div>
-            </div>
-            
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Ready to Transform Your Learning?
-            </h2>
-            <p className="text-xl mb-8 opacity-90">
-              Join thousands of students who are already learning smarter with AI
-            </p>
-            
-            <div className="flex justify-center">
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-purple-600 px-8 flex items-center space-x-2" asChild>
-                <Link to="/chat">
-                  <Bot size={20} />
-                  <span>Try AI Chat</span>
-                </Link>
-              </Button>
+        {/* Smart Features Section */}
+        <section className="px-6 py-16 bg-gradient-to-br from-slate-50 to-purple-50">
+          <div className="max-w-6xl mx-auto">
+            <div className="grid md:grid-cols-2 gap-8">
+              {/* Camera Upload Feature */}
+              <Card className="border-0 shadow-xl hover:shadow-2xl transition-all duration-300 bg-white/80 backdrop-blur-sm animate-slide-up">
+                <CardHeader className="text-center pb-4">
+                  <div className="w-20 h-20 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4 animate-float">
+                    <Camera className="text-white" size={32} />
+                  </div>
+                  <CardTitle className="text-2xl font-bold text-gray-800">
+                    Smart Question Upload
+                  </CardTitle>
+                  <CardDescription className="text-gray-600">
+                    Snap a photo of your question and get instant AI-powered solutions
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="flex items-center space-x-3 p-3 bg-blue-50 rounded-lg">
+                    <Upload className="text-blue-600" size={20} />
+                    <span className="text-sm text-blue-700 font-medium">Upload from camera or gallery</span>
+                  </div>
+                  <div className="flex items-center space-x-3 p-3 bg-green-50 rounded-lg">
+                    <Zap className="text-green-600" size={20} />
+                    <span className="text-sm text-green-700 font-medium">Get instant AI analysis</span>
+                  </div>
+                  <Button className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:opacity-90 flex items-center space-x-2" asChild>
+                    <Link to="/chat">
+                      <Camera size={18} />
+                      <span>Try Camera Upload</span>
+                    </Link>
+                  </Button>
+                </CardContent>
+              </Card>
+
+              {/* Recently Viewed */}
+              <Card className="border-0 shadow-xl hover:shadow-2xl transition-all duration-300 bg-white/80 backdrop-blur-sm animate-slide-up" style={{ animationDelay: '0.2s' }}>
+                <CardHeader className="pb-4">
+                  <div className="flex items-center space-x-3">
+                    <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-teal-600 rounded-full flex items-center justify-center">
+                      <Eye className="text-white" size={20} />
+                    </div>
+                    <div>
+                      <CardTitle className="text-xl font-bold text-gray-800">Recently Viewed</CardTitle>
+                      <CardDescription className="text-gray-600">Continue where you left off</CardDescription>
+                    </div>
+                  </div>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  {recentlyViewed.map((item, index) => {
+                    const Icon = item.icon;
+                    return (
+                      <div key={index} className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 transition-colors cursor-pointer group">
+                        <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center group-hover:bg-gray-200 transition-colors">
+                          <Icon className="text-gray-600" size={16} />
+                        </div>
+                        <div className="flex-1">
+                          <div className="font-medium text-gray-800 text-sm">{item.title}</div>
+                          <div className="text-xs text-gray-500">{item.subject}</div>
+                        </div>
+                        <div className="flex items-center space-x-1 text-xs text-gray-400">
+                          <Clock size={12} />
+                          <span>{item.time}</span>
+                        </div>
+                      </div>
+                    );
+                  })}
+                  <Button variant="outline" className="w-full mt-4" asChild>
+                    <Link to="/notes">
+                      <span>View All History</span>
+                      <ArrowRight className="ml-2" size={16} />
+                    </Link>
+                  </Button>
+                </CardContent>
+              </Card>
             </div>
           </div>
         </section>
