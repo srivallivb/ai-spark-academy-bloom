@@ -112,68 +112,47 @@ I'm here to make sure you completely understand this! 🚀`,
     setInputText('');
     setIsTyping(true);
 
-    // Simulate AI response
-    setTimeout(() => {
-      const responses = [
-        "Great question! Let me break this down for you step by step... 🎯",
-        "I love your curiosity! Here's what you need to know... ✨",
-        "Perfect timing to learn this! Let me explain it in a fun way... 🚀",
-        "You're asking all the right questions! Here's the answer... 💡"
-      ];
-      
+    try {
+      const response = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${import.meta.env.VITE_GEMINI_API_KEY}`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            contents: [
+              {
+                parts: [{ text: userMessage.text }]
+              }
+            ]
+          })
+        }
+      );
+
+      const data = await response.json();
+      const geminiText = data?.candidates?.[0]?.content?.parts?.[0]?.text || "Sorry, I couldn't generate a response.";
+
       const aiResponse: Message = {
         id: (Date.now() + 1).toString(),
-        text: `${responses[Math.floor(Math.random() * responses.length)]} 
-
-About "${inputText}" - This is such an important concept! Let me explain it in a way that makes perfect sense for your learning level. I'll use examples and break it down so it's super clear and easy to remember! 📚✨
-
-Want me to explain any part in more detail? I'm here to help you master this! 🌟`,
+        text: geminiText,
         isUser: false,
         timestamp: new Date()
       };
+
       setMessages(prev => [...prev, aiResponse]);
+    } catch (error) {
+      const errorResponse: Message = {
+        id: (Date.now() + 1).toString(),
+        text: "Something went wrong while contacting Gemini.",
+        isUser: false,
+        timestamp: new Date()
+      };
+      setMessages(prev => [...prev, errorResponse]);
+    } finally {
       setIsTyping(false);
-    }, 1500);
-    try {
-  const response = await fetch(
-    `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${import.meta.env.VITE_GEMINI_API_KEY}`,
-    {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        contents: [
-          {
-            parts: [{ text: userMessage.text }]
-          }
-        ]
-      })
     }
-  );
-
-  const data = await response.json();
-  const geminiText = data?.candidates?.[0]?.content?.parts?.[0]?.text || "Sorry, I couldn't generate a response.";
-
-  const aiResponse: Message = {
-    id: (Date.now() + 1).toString(),
-    text: geminiText,
-    isUser: false,
-    timestamp: new Date()
   };
-
-  setMessages(prev => [...prev, aiResponse]);
-} catch (error) {
-  const errorResponse: Message = {
-    id: (Date.now() + 1).toString(),
-    text: "Something went wrong while contacting Gemini.",
-    isUser: false,
-    timestamp: new Date()
-  };
-  setMessages(prev => [...prev, errorResponse]);
-} finally {
-  setIsTyping(false);
-}
 
   const handleQuickQuestion = (question: string) => {
     setInputText(question.replace(/[🌱📐💻⚗️🌿🔢⚡🧪]/g, '').trim());
