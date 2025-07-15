@@ -1,3 +1,4 @@
+
 import React, { useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { 
@@ -26,7 +27,10 @@ import {
   ChevronRight,
   Play,
   Home as HomeIcon,
-  User
+  User,
+  Rocket,
+  Coffee,
+  Heart
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -103,6 +107,43 @@ const Home = () => {
     "Wow: Bananas are berries, but strawberries aren't! 🍌"
   ];
 
+  const aiLearningActions = [
+    {
+      title: 'Start Learning 🚀',
+      subtitle: 'Jump into your next lesson',
+      icon: Rocket,
+      gradient: 'from-blue-500 to-purple-600',
+      action: () => navigate('/chat'),
+      message: 'Ready to blast off?'
+    },
+    {
+      title: 'Quick Quiz of the Day 📚',
+      subtitle: 'Test your knowledge',
+      icon: Brain,
+      gradient: 'from-green-500 to-teal-600',
+      action: () => navigate('/quiz'),
+      message: 'Challenge accepted!'
+    },
+    {
+      title: 'Ask AI Anything 🤖',
+      subtitle: 'Get instant answers',
+      icon: MessageCircle,
+      gradient: 'from-purple-500 to-pink-600',
+      action: () => navigate('/chat'),
+      message: 'What\'s on your mind?'
+    },
+    {
+      title: 'Today\'s Challenge 💡',
+      subtitle: 'Discover something new',
+      icon: Lightbulb,
+      gradient: 'from-orange-500 to-red-600',
+      action: () => navigate('/chat'),
+      message: 'Let\'s explore together!'
+    }
+  ];
+
+  const [currentAiAction, setCurrentAiAction] = useState(0);
+
   const handleFileUpload = async (file: File, source: string) => {
     if (!file) return;
 
@@ -137,6 +178,15 @@ const Home = () => {
     setShowSurprise(true);
     alert(randomFact);
     setTimeout(() => setShowSurprise(false), 3000);
+  };
+
+  const handleAiActionClick = () => {
+    const action = aiLearningActions[currentAiAction];
+    action.action();
+  };
+
+  const cycleAiAction = () => {
+    setCurrentAiAction((prev) => (prev + 1) % aiLearningActions.length);
   };
 
   return (
@@ -192,9 +242,9 @@ const Home = () => {
                 </div>
                 <div className="flex-1">
                   <h2 className="text-2xl font-bold text-white mb-2">
-                    Hey Valli! Ready to spark your learning journey? 🚀
+                    Hey Buddy! Ready to spark your learning journey? 🚀
                   </h2>
-                  <p className="text-white/90 font-medium">Let's make today amazing together!</p>
+                  <p className="text-white/90 font-medium">You're doing amazing! Let's make today awesome together!</p>
                 </div>
               </div>
             </CardContent>
@@ -299,11 +349,75 @@ const Home = () => {
           </Carousel>
         </section>
 
-        {/* Smart Features Section */}
+        {/* AI-Powered Learning Section */}
         <section className="px-6 py-8">
+          <div className="mb-6">
+            <h2 className="text-2xl font-bold text-gray-800 mb-2">What do you want to learn today?</h2>
+            <p className="text-gray-600">Let our AI buddy help you explore!</p>
+          </div>
+          
           <div className="grid md:grid-cols-2 gap-6">
-            {/* Camera Upload Feature */}
-            <Card className="border-0 shadow-xl hover:shadow-2xl transition-all duration-300 bg-gradient-to-br from-white to-blue-50 animate-slide-up">
+            {/* AI Learning Action Card */}
+            <Card className="border-0 shadow-2xl hover:shadow-3xl transition-all duration-500 bg-gradient-to-br from-white to-blue-50 animate-slide-up overflow-hidden relative group">
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 transform translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000"></div>
+              
+              <CardHeader className="text-center pb-4 relative z-10">
+                <div className={`w-24 h-24 bg-gradient-to-r ${aiLearningActions[currentAiAction].gradient} rounded-full flex items-center justify-center mx-auto mb-4 animate-float shadow-lg`}>
+                  {React.createElement(aiLearningActions[currentAiAction].icon, { className: "text-white", size: 36 })}
+                </div>
+                <CardTitle className={`text-2xl font-bold bg-gradient-to-r ${aiLearningActions[currentAiAction].gradient} bg-clip-text text-transparent mb-2`}>
+                  {aiLearningActions[currentAiAction].title}
+                </CardTitle>
+                <CardDescription className="text-gray-600 font-medium">
+                  {aiLearningActions[currentAiAction].subtitle}
+                </CardDescription>
+                
+                <div className="mt-4 p-3 bg-gradient-to-r from-yellow-50 to-orange-50 rounded-2xl border border-orange-200">
+                  <div className="flex items-center space-x-2">
+                    <div className="w-8 h-8 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full flex items-center justify-center animate-bounce">
+                      <Bot className="text-white" size={16} />
+                    </div>
+                    <p className="text-orange-700 font-medium text-sm">
+                      "Hey Buddy! {aiLearningActions[currentAiAction].message}"
+                    </p>
+                  </div>
+                </div>
+              </CardHeader>
+              
+              <CardContent className="space-y-4 relative z-10">
+                <div className="flex items-center space-x-3 p-3 bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg">
+                  <Sparkles className="text-purple-600" size={20} />
+                  <span className="text-sm text-purple-700 font-medium">AI-powered personalized experience</span>
+                </div>
+                <div className="flex items-center space-x-3 p-3 bg-gradient-to-r from-green-50 to-teal-50 rounded-lg">
+                  <Heart className="text-green-600" size={20} />
+                  <span className="text-sm text-green-700 font-medium">Made just for you!</span>
+                </div>
+                
+                <div className="space-y-2">
+                  <Button 
+                    className={`w-full bg-gradient-to-r ${aiLearningActions[currentAiAction].gradient} hover:opacity-90 flex items-center space-x-2 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 active:scale-95`}
+                    onClick={handleAiActionClick}
+                  >
+                    {React.createElement(aiLearningActions[currentAiAction].icon, { size: 18 })}
+                    <span>Let's Go!</span>
+                    <ArrowRight size={18} />
+                  </Button>
+                  
+                  <Button 
+                    variant="outline"
+                    className="w-full border-2 border-gray-200 hover:border-purple-300 hover:bg-purple-50 transition-all duration-300"
+                    onClick={cycleAiAction}
+                  >
+                    <Coffee size={16} />
+                    <span className="ml-2">Try Something Else</span>
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Smart Upload Feature */}
+            <Card className="border-0 shadow-xl hover:shadow-2xl transition-all duration-300 bg-gradient-to-br from-white to-purple-50 animate-slide-up" style={{ animationDelay: '0.2s' }}>
               <CardHeader className="text-center pb-4">
                 <div className="w-20 h-20 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4 animate-float">
                   <Camera className="text-white" size={32} />
@@ -340,41 +454,6 @@ const Home = () => {
                     <span>Upload from Camera</span>
                   </Button>
                 </div>
-              </CardContent>
-            </Card>
-
-            {/* AI Chat Feature */}
-            <Card className="border-0 shadow-xl hover:shadow-2xl transition-all duration-300 bg-gradient-to-br from-white to-purple-50 animate-slide-up" style={{ animationDelay: '0.2s' }}>
-              <CardHeader className="text-center pb-4">
-                <div className="w-20 h-20 bg-gradient-to-r from-purple-500 to-pink-600 rounded-full flex items-center justify-center mx-auto mb-4 animate-float">
-                  <MessageCircle className="text-white" size={32} />
-                </div>
-                <CardTitle className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-                  AI Learning Assistant
-                </CardTitle>
-                <CardDescription className="text-gray-600">
-                  Chat with AI for instant help and explanations
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="flex items-center space-x-3 p-3 bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg">
-                  <Bot className="text-purple-600" size={20} />
-                  <span className="text-sm text-purple-700 font-medium">24/7 AI tutor available</span>
-                </div>
-                <div className="flex items-center space-x-3 p-3 bg-gradient-to-r from-green-50 to-teal-50 rounded-lg">
-                  <Sparkles className="text-green-600" size={20} />
-                  <span className="text-sm text-green-700 font-medium">Personalized learning experience</span>
-                </div>
-                <Button 
-                  className="w-full bg-gradient-to-r from-purple-500 to-pink-600 hover:opacity-90 flex items-center space-x-2 shadow-lg"
-                  asChild
-                >
-                  <Link to="/chat">
-                    <MessageCircle size={18} />
-                    <span>Start AI Chat</span>
-                    <ArrowRight size={18} />
-                  </Link>
-                </Button>
               </CardContent>
             </Card>
           </div>
