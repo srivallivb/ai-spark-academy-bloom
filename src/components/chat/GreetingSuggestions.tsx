@@ -12,45 +12,45 @@ const GreetingSuggestions = ({ onSuggestionClick }: GreetingSuggestionsProps) =>
       text: "Help with quadratic equations", 
       icon: Calculator, 
       emoji: "📐",
-      color: "from-blue-400 to-cyan-500" 
+      color: "from-blue-300 to-cyan-400" 
     },
     { 
       text: "Write an essay on climate change", 
       icon: PenTool, 
       emoji: "✍️",
-      color: "from-green-400 to-emerald-500" 
+      color: "from-green-300 to-emerald-400" 
     },
     { 
       text: "Learn programming basics", 
       icon: Code, 
       emoji: "💻",
-      color: "from-purple-400 to-pink-500" 
+      color: "from-purple-300 to-pink-400" 
     },
     { 
       text: "Explain photosynthesis", 
       icon: Beaker, 
       emoji: "🧪",
-      color: "from-orange-400 to-red-500" 
+      color: "from-orange-300 to-red-400" 
     },
     { 
       text: "Solve fractions", 
       icon: Calculator, 
       emoji: "🔢",
-      color: "from-indigo-400 to-purple-500" 
+      color: "from-indigo-300 to-purple-400" 
     },
     { 
       text: "Prepare for a test", 
       icon: BookOpen, 
       emoji: "📚",
-      color: "from-teal-400 to-blue-500" 
+      color: "from-teal-300 to-blue-400" 
     }
   ];
 
   return (
-    <div className="text-center py-8 animate-slide-up">
-      <div className="flex items-center justify-center mb-6">
-        <Brain className="text-purple-600 mr-3 animate-pulse" size={32} />
-        <h2 className="text-2xl font-bold bg-gradient-to-r from-purple-700 to-blue-700 bg-clip-text text-transparent">
+    <div className="text-center py-6 animate-slide-up">
+      <div className="flex items-center justify-center mb-4">
+        <Brain className="text-purple-500 mr-3 animate-pulse" size={28} />
+        <h2 className="text-xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
           What can I help you with?
         </h2>
       </div>
@@ -64,7 +64,7 @@ const GreetingSuggestions = ({ onSuggestionClick }: GreetingSuggestionsProps) =>
               className={`
                 flex items-center space-x-2 px-4 py-3 rounded-full 
                 bg-gradient-to-r ${suggestion.color} text-white
-                shadow-lg hover:shadow-xl transform transition-all duration-200
+                shadow-md hover:shadow-lg transform transition-all duration-200
                 hover:scale-105 active:scale-95 min-w-max
                 animate-fade-in
               `}

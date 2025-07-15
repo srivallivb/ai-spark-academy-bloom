@@ -40,7 +40,7 @@ const Chat = () => {
   };
 
   return (
-    <div className="md:ml-72 flex flex-col h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-pink-50">
+    <div className="md:ml-72 flex flex-col h-screen bg-gradient-to-br from-purple-25 via-blue-25 to-pink-25">
       <ChatHeader />
 
       <div className="flex-1 overflow-y-auto p-4 pb-24 md:pb-6 space-y-4">

@@ -1,4 +1,3 @@
-
 import React, { useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { 
@@ -112,7 +111,7 @@ const Home = () => {
       title: 'Start Learning 🚀',
       subtitle: 'Jump into your next lesson',
       icon: Rocket,
-      gradient: 'from-blue-500 to-purple-600',
+      gradient: 'from-blue-400 to-purple-500',
       action: () => navigate('/chat'),
       message: 'Ready to blast off?'
     },
@@ -120,7 +119,7 @@ const Home = () => {
       title: 'Quick Quiz of the Day 📚',
       subtitle: 'Test your knowledge',
       icon: Brain,
-      gradient: 'from-green-500 to-teal-600',
+      gradient: 'from-green-400 to-teal-500',
       action: () => navigate('/quiz'),
       message: 'Challenge accepted!'
     },
@@ -128,7 +127,7 @@ const Home = () => {
       title: 'Ask AI Anything 🤖',
       subtitle: 'Get instant answers',
       icon: MessageCircle,
-      gradient: 'from-purple-500 to-pink-600',
+      gradient: 'from-purple-400 to-pink-500',
       action: () => navigate('/chat'),
       message: 'What\'s on your mind?'
     },
@@ -136,7 +135,7 @@ const Home = () => {
       title: 'Today\'s Challenge 💡',
       subtitle: 'Discover something new',
       icon: Lightbulb,
-      gradient: 'from-orange-500 to-red-600',
+      gradient: 'from-orange-400 to-red-500',
       action: () => navigate('/chat'),
       message: 'Let\'s explore together!'
     }
@@ -190,7 +189,7 @@ const Home = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
+    <div className="min-h-screen bg-gradient-to-br from-blue-25 via-purple-25 to-pink-25 pb-20 md:pb-8">
       {/* Hidden file inputs */}
       <input
         ref={fileInputRef}
@@ -209,42 +208,42 @@ const Home = () => {
       />
 
       {/* Colorful Header */}
-      <header className="md:ml-64 px-4 py-6 bg-gradient-to-r from-purple-600 via-pink-500 to-orange-400 shadow-lg">
+      <header className="md:ml-64 px-4 py-4 bg-gradient-to-r from-purple-400 via-pink-400 to-orange-400 shadow-lg">
         <div className="flex items-center justify-between">
           <div className="md:hidden flex items-center space-x-3">
             <div className="w-10 h-10 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center animate-bounce">
               <Bot className="text-white" size={20} />
             </div>
             <div>
-              <h1 className="text-xl font-bold text-white">AI Spark Academy</h1>
+              <h1 className="text-lg font-bold text-white">AI Spark Academy</h1>
               <p className="text-white/80 text-sm font-medium">Bloom</p>
             </div>
           </div>
-          <div className="flex items-center space-x-3">
-            <Button variant="outline" className="bg-white/20 text-white border-white/30 hover:bg-white/30" asChild>
+          <div className="flex items-center space-x-2">
+            <Button variant="outline" className="bg-white/20 text-white border-white/30 hover:bg-white/30 text-sm px-3 py-2" asChild>
               <Link to="/auth">Login</Link>
             </Button>
-            <Button className="bg-white text-purple-600 hover:bg-white/90 font-semibold" asChild>
+            <Button className="bg-white text-purple-600 hover:bg-white/90 font-semibold text-sm px-3 py-2" asChild>
               <Link to="/auth">Get Started</Link>
             </Button>
           </div>
         </div>
       </header>
 
-      <main className="md:ml-64 pb-24 md:pb-8">
+      <main className="md:ml-64">
         {/* Welcome Banner */}
-        <section className="px-6 py-8">
-          <Card className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 border-0 shadow-2xl animate-fade-in">
+        <section className="px-4 py-6">
+          <Card className="bg-gradient-to-r from-cyan-300 via-blue-400 to-purple-500 border-0 shadow-xl animate-fade-in">
             <CardContent className="p-6">
               <div className="flex items-center space-x-4">
-                <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center animate-float">
-                  <Bot className="text-white" size={32} />
+                <div className="w-14 h-14 bg-white/20 rounded-full flex items-center justify-center animate-float">
+                  <Bot className="text-white" size={28} />
                 </div>
                 <div className="flex-1">
-                  <h2 className="text-2xl font-bold text-white mb-2">
+                  <h2 className="text-xl font-bold text-white mb-2">
                     Hey Buddy! Ready to spark your learning journey? 🚀
                   </h2>
-                  <p className="text-white/90 font-medium">You're doing amazing! Let's make today awesome together!</p>
+                  <p className="text-white/90 font-medium text-sm">You're doing amazing! Let's make today awesome together!</p>
                 </div>
               </div>
             </CardContent>
@@ -252,44 +251,44 @@ const Home = () => {
         </section>
 
         {/* Daily Streak Card */}
-        <section className="px-6 mb-8">
-          <Card className="bg-gradient-to-r from-orange-400 to-pink-500 border-0 shadow-xl animate-slide-up">
-            <CardContent className="p-6">
+        <section className="px-4 mb-6">
+          <Card className="bg-gradient-to-r from-orange-300 to-pink-400 border-0 shadow-lg animate-slide-up">
+            <CardContent className="p-5">
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center space-x-3">
-                  <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
-                    <Flame className="text-white" size={24} />
+                  <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
+                    <Flame className="text-white" size={20} />
                   </div>
                   <div>
-                    <h3 className="text-xl font-bold text-white">Daily Streak 🔥</h3>
-                    <p className="text-white/90">You're on a 3-day streak! Keep it going!</p>
+                    <h3 className="text-lg font-bold text-white">Daily Streak 🔥</h3>
+                    <p className="text-white/90 text-sm">You're on a 3-day streak! Keep it going!</p>
                   </div>
                 </div>
               </div>
               <div className="space-y-3">
                 <div className="flex items-center justify-between text-white">
-                  <span className="font-medium">⭐ XP Progress</span>
-                  <span className="font-bold">150 / 200 XP</span>
+                  <span className="font-medium text-sm">⭐ XP Progress</span>
+                  <span className="font-bold text-sm">150 / 200 XP</span>
                 </div>
-                <Progress value={75} className="h-3 bg-white/20" />
+                <Progress value={75} className="h-2 bg-white/20" />
               </div>
             </CardContent>
           </Card>
         </section>
 
         {/* Stats Section */}
-        <section className="px-6 py-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <section className="px-4 py-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             {stats.map((stat, index) => {
               const IconComponent = stat.icon;
               return (
-                <Card key={index} className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 animate-fade-in" style={{ animationDelay: `${index * 0.1}s` }}>
+                <Card key={index} className="border-0 shadow-md hover:shadow-lg transition-all duration-300 animate-fade-in" style={{ animationDelay: `${index * 0.1}s` }}>
                   <CardContent className="p-4 text-center">
-                    <div className={`w-12 h-12 bg-gradient-to-r ${stat.gradient} rounded-full flex items-center justify-center mx-auto mb-3`}>
-                      <IconComponent className="text-white" size={20} />
+                    <div className={`w-10 h-10 bg-gradient-to-r ${stat.gradient.replace('500', '400').replace('600', '500')} rounded-full flex items-center justify-center mx-auto mb-3`}>
+                      <IconComponent className="text-white" size={18} />
                     </div>
-                    <div className="text-2xl font-bold text-gray-800 mb-1">{stat.number}</div>
-                    <div className="text-sm text-gray-600 font-medium">{stat.label}</div>
+                    <div className="text-xl font-bold text-gray-800 mb-1">{stat.number}</div>
+                    <div className="text-xs text-gray-600 font-medium">{stat.label}</div>
                   </CardContent>
                 </Card>
               );
@@ -297,119 +296,67 @@ const Home = () => {
           </div>
         </section>
 
-        {/* Learning Cards Carousel */}
-        <section className="px-6 py-8">
-          <div className="mb-6">
-            <h2 className="text-2xl font-bold text-gray-800 mb-2">Learning Cards</h2>
-            <p className="text-gray-600">Continue your learning journey</p>
-          </div>
-          
-          <Carousel className="w-full">
-            <CarouselContent>
-              {learningCards.map((card, index) => {
-                const IconComponent = card.icon;
-                return (
-                  <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
-                    <Card className="border-0 shadow-xl hover:shadow-2xl transition-all duration-300 h-full">
-                      <CardHeader className={`bg-gradient-to-r ${card.gradient} text-white rounded-t-lg`}>
-                        <div className="flex items-center space-x-3">
-                          <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
-                            <IconComponent size={20} />
-                          </div>
-                          <div>
-                            <CardTitle className="text-lg">{card.title}</CardTitle>
-                            <CardDescription className="text-white/80 text-sm">{card.subtitle}</CardDescription>
-                          </div>
-                        </div>
-                      </CardHeader>
-                      <CardContent className="p-4 space-y-3">
-                        {card.items.slice(0, 2).map((item, itemIndex) => {
-                          const ItemIcon = item.icon;
-                          return (
-                            <div key={itemIndex} className="flex items-center space-x-3 p-3 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors cursor-pointer">
-                              <div className={`w-8 h-8 bg-gradient-to-r ${item.gradient} rounded-lg flex items-center justify-center`}>
-                                <ItemIcon className="text-white" size={14} />
-                              </div>
-                              <div className="flex-1">
-                                <div className="font-medium text-gray-800 text-sm">{item.title}</div>
-                                <div className="text-xs text-gray-500">{item.subject}</div>
-                                <Progress value={item.progress} className="h-1 mt-1" />
-                              </div>
-                            </div>
-                          );
-                        })}
-                      </CardContent>
-                    </Card>
-                  </CarouselItem>
-                );
-              })}
-            </CarouselContent>
-            <CarouselPrevious />
-            <CarouselNext />
-          </Carousel>
-        </section>
-
         {/* AI-Powered Learning Section */}
-        <section className="px-6 py-8">
-          <div className="mb-6">
-            <h2 className="text-2xl font-bold text-gray-800 mb-2">What do you want to learn today?</h2>
-            <p className="text-gray-600">Let our AI buddy help you explore!</p>
+        <section className="px-4 py-6">
+          <div className="mb-4">
+            <h2 className="text-xl font-bold text-gray-800 mb-2">What do you want to learn today?</h2>
+            <p className="text-gray-600 text-sm">Let our AI buddy help you explore!</p>
           </div>
           
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="grid md:grid-cols-2 gap-4">
             {/* AI Learning Action Card */}
-            <Card className="border-0 shadow-2xl hover:shadow-3xl transition-all duration-500 bg-gradient-to-br from-white to-blue-50 animate-slide-up overflow-hidden relative group">
+            <Card className="border-0 shadow-xl hover:shadow-2xl transition-all duration-500 bg-gradient-to-br from-white to-blue-50 animate-slide-up overflow-hidden relative group">
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 transform translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000"></div>
               
               <CardHeader className="text-center pb-4 relative z-10">
-                <div className={`w-24 h-24 bg-gradient-to-r ${aiLearningActions[currentAiAction].gradient} rounded-full flex items-center justify-center mx-auto mb-4 animate-float shadow-lg`}>
-                  {React.createElement(aiLearningActions[currentAiAction].icon, { className: "text-white", size: 36 })}
+                <div className={`w-20 h-20 bg-gradient-to-r ${aiLearningActions[currentAiAction].gradient} rounded-full flex items-center justify-center mx-auto mb-4 animate-float shadow-lg`}>
+                  {React.createElement(aiLearningActions[currentAiAction].icon, { className: "text-white", size: 32 })}
                 </div>
-                <CardTitle className={`text-2xl font-bold bg-gradient-to-r ${aiLearningActions[currentAiAction].gradient} bg-clip-text text-transparent mb-2`}>
+                <CardTitle className={`text-lg font-bold bg-gradient-to-r ${aiLearningActions[currentAiAction].gradient} bg-clip-text text-transparent mb-2`}>
                   {aiLearningActions[currentAiAction].title}
                 </CardTitle>
-                <CardDescription className="text-gray-600 font-medium">
+                <CardDescription className="text-gray-600 font-medium text-sm">
                   {aiLearningActions[currentAiAction].subtitle}
                 </CardDescription>
                 
                 <div className="mt-4 p-3 bg-gradient-to-r from-yellow-50 to-orange-50 rounded-2xl border border-orange-200">
                   <div className="flex items-center space-x-2">
-                    <div className="w-8 h-8 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full flex items-center justify-center animate-bounce">
-                      <Bot className="text-white" size={16} />
+                    <div className="w-8 h-8 bg-gradient-to-r from-yellow-300 to-orange-400 rounded-full flex items-center justify-center animate-bounce">
+                      <Bot className="text-white" size={14} />
                     </div>
-                    <p className="text-orange-700 font-medium text-sm">
+                    <p className="text-orange-700 font-medium text-xs">
                       "Hey Buddy! {aiLearningActions[currentAiAction].message}"
                     </p>
                   </div>
                 </div>
               </CardHeader>
               
-              <CardContent className="space-y-4 relative z-10">
+              <CardContent className="space-y-3 relative z-10">
                 <div className="flex items-center space-x-3 p-3 bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg">
-                  <Sparkles className="text-purple-600" size={20} />
-                  <span className="text-sm text-purple-700 font-medium">AI-powered personalized experience</span>
+                  <Sparkles className="text-purple-500" size={16} />
+                  <span className="text-xs text-purple-700 font-medium">AI-powered personalized experience</span>
                 </div>
                 <div className="flex items-center space-x-3 p-3 bg-gradient-to-r from-green-50 to-teal-50 rounded-lg">
-                  <Heart className="text-green-600" size={20} />
-                  <span className="text-sm text-green-700 font-medium">Made just for you!</span>
+                  <Heart className="text-green-500" size={16} />
+                  <span className="text-xs text-green-700 font-medium">Made just for you!</span>
                 </div>
                 
                 <div className="space-y-2">
                   <Button 
-                    className={`w-full bg-gradient-to-r ${aiLearningActions[currentAiAction].gradient} hover:opacity-90 flex items-center space-x-2 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 active:scale-95`}
+                    className={`w-full bg-gradient-to-r ${aiLearningActions[currentAiAction].gradient} hover:opacity-90 flex items-center space-x-2 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 active:scale-95 text-sm py-2`}
                     onClick={handleAiActionClick}
                   >
-                    {React.createElement(aiLearningActions[currentAiAction].icon, { size: 18 })}
+                    {React.createElement(aiLearningActions[currentAiAction].icon, { size: 16 })}
                     <span>Let's Go!</span>
-                    <ArrowRight size={18} />
+                    <ArrowRight size={16} />
                   </Button>
                   
                   <Button 
                     variant="outline"
-                    className="w-full border-2 border-gray-200 hover:border-purple-300 hover:bg-purple-50 transition-all duration-300"
+                    className="w-full border-2 border-gray-200 hover:border-purple-300 hover:bg-purple-50 transition-all duration-300 text-sm py-2"
                     onClick={cycleAiAction}
                   >
-                    <Coffee size={16} />
+                    <Coffee size={14} />
                     <span className="ml-2">Try Something Else</span>
                   </Button>
                 </div>
@@ -417,40 +364,40 @@ const Home = () => {
             </Card>
 
             {/* Smart Upload Feature */}
-            <Card className="border-0 shadow-xl hover:shadow-2xl transition-all duration-300 bg-gradient-to-br from-white to-purple-50 animate-slide-up" style={{ animationDelay: '0.2s' }}>
+            <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 bg-gradient-to-br from-white to-purple-50 animate-slide-up" style={{ animationDelay: '0.2s' }}>
               <CardHeader className="text-center pb-4">
-                <div className="w-20 h-20 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4 animate-float">
-                  <Camera className="text-white" size={32} />
+                <div className="w-16 h-16 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full flex items-center justify-center mx-auto mb-4 animate-float">
+                  <Camera className="text-white" size={24} />
                 </div>
-                <CardTitle className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                <CardTitle className="text-lg font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                   Smart Question Upload
                 </CardTitle>
-                <CardDescription className="text-gray-600">
+                <CardDescription className="text-gray-600 text-sm">
                   Upload from gallery or device to get instant AI-powered solutions
                 </CardDescription>
               </CardHeader>
-              <CardContent className="space-y-4">
+              <CardContent className="space-y-3">
                 <div className="flex items-center space-x-3 p-3 bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg">
-                  <Image className="text-blue-600" size={20} />
-                  <span className="text-sm text-blue-700 font-medium">Upload from gallery or device</span>
+                  <Image className="text-blue-500" size={16} />
+                  <span className="text-xs text-blue-700 font-medium">Upload from gallery or device</span>
                 </div>
                 <div className="flex items-center space-x-3 p-3 bg-gradient-to-r from-green-50 to-teal-50 rounded-lg">
-                  <Zap className="text-green-600" size={20} />
-                  <span className="text-sm text-green-700 font-medium">Get instant AI analysis</span>
+                  <Zap className="text-green-500" size={16} />
+                  <span className="text-xs text-green-700 font-medium">Get instant AI analysis</span>
                 </div>
                 <div className="space-y-2">
                   <Button 
-                    className="w-full bg-gradient-to-r from-green-500 to-teal-600 hover:opacity-90 flex items-center space-x-2 shadow-lg"
+                    className="w-full bg-gradient-to-r from-green-400 to-teal-500 hover:opacity-90 flex items-center space-x-2 shadow-md text-sm py-2"
                     onClick={handleGalleryUpload}
                   >
-                    <Upload size={18} />
+                    <Upload size={16} />
                     <span>Upload from Gallery</span>
                   </Button>
                   <Button 
-                    className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:opacity-90 flex items-center space-x-2 shadow-lg"
+                    className="w-full bg-gradient-to-r from-blue-400 to-purple-500 hover:opacity-90 flex items-center space-x-2 shadow-md text-sm py-2"
                     onClick={handleCameraUpload}
                   >
-                    <Camera size={18} />
+                    <Camera size={16} />
                     <span>Upload from Camera</span>
                   </Button>
                 </div>
@@ -463,14 +410,14 @@ const Home = () => {
       {/* Floating Surprise Button */}
       <Button
         onClick={handleSurpriseMe}
-        className={`fixed bottom-24 right-6 md:bottom-8 w-14 h-14 rounded-full bg-gradient-to-r from-yellow-400 to-orange-500 hover:opacity-90 shadow-2xl transition-all duration-300 z-20 ${showSurprise ? 'animate-wiggle' : 'animate-bounce-slow'}`}
+        className={`fixed bottom-20 right-4 md:bottom-8 w-12 h-12 rounded-full bg-gradient-to-r from-yellow-300 to-orange-400 hover:opacity-90 shadow-xl transition-all duration-300 z-20 ${showSurprise ? 'animate-wiggle' : 'animate-bounce-slow'}`}
         size="icon"
       >
-        <Gift className="text-white" size={24} />
+        <Gift className="text-white" size={20} />
       </Button>
 
       {/* Bottom Navigation Bar */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-xl border-t border-gray-200/30 px-4 py-3 md:hidden shadow-2xl z-10">
+      <div className="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-xl border-t border-gray-200/30 px-4 py-2 md:hidden shadow-xl z-10">
         <div className="flex justify-around items-center">
           {bottomNavItems.map((item, index) => {
             const Icon = item.icon;
@@ -480,12 +427,12 @@ const Home = () => {
                 to={item.path}
                 className={`flex flex-col items-center space-y-1 px-3 py-2 rounded-2xl transition-all duration-300 ${
                   item.active
-                    ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white scale-110 -translate-y-1 shadow-lg'
+                    ? 'bg-gradient-to-r from-purple-400 to-pink-400 text-white scale-105 -translate-y-1 shadow-md'
                     : 'text-gray-500 hover:text-gray-700'
                 }`}
               >
-                <div className={`w-8 h-8 flex items-center justify-center ${item.active ? '' : 'hover:scale-110 transition-transform'}`}>
-                  <Icon size={20} />
+                <div className={`w-6 h-6 flex items-center justify-center ${item.active ? '' : 'hover:scale-110 transition-transform'}`}>
+                  <Icon size={18} />
                 </div>
                 <span className={`text-xs font-medium ${item.active ? 'text-white' : ''}`}>
                   {item.label}
