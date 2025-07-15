@@ -1,6 +1,6 @@
 
 import React, { useRef } from 'react';
-import { Send, Upload, Lightbulb } from 'lucide-react';
+import { Send, Upload, Mic } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
@@ -27,7 +27,7 @@ const ChatInput = ({ inputText, setInputText, onSendMessage, onFileUpload, isTyp
   };
 
   return (
-    <div className="fixed bottom-16 md:bottom-0 left-0 right-0 md:left-72 bg-gradient-to-r from-white/95 to-purple-50/95 backdrop-blur-xl border-t-2 border-purple-200/30 p-4 shadow-2xl z-10">
+    <div className="fixed bottom-16 md:bottom-0 left-0 right-0 md:left-72 bg-white/95 backdrop-blur-xl border-t border-purple-200/30 p-4 shadow-2xl z-10">
       <input
         ref={fileInputRef}
         type="file"
@@ -36,32 +36,38 @@ const ChatInput = ({ inputText, setInputText, onSendMessage, onFileUpload, isTyp
         className="hidden"
       />
       
-      <div className="flex items-center space-x-4 max-w-4xl mx-auto">
+      <div className="flex items-center space-x-3 max-w-4xl mx-auto">
         <Button
           onClick={handleFileUpload}
           variant="outline"
-          className="flex-shrink-0 rounded-2xl border-2 border-purple-200 hover:border-purple-400 p-3"
+          className="flex-shrink-0 rounded-full w-12 h-12 border-2 border-purple-200 hover:border-purple-400 p-0"
         >
-          <Upload size={20} className="text-purple-600" />
+          <Upload size={18} className="text-purple-600" />
         </Button>
+        
+        <Button
+          variant="outline"
+          className="flex-shrink-0 rounded-full w-12 h-12 border-2 border-purple-200 hover:border-purple-400 p-0"
+        >
+          <Mic size={18} className="text-purple-600" />
+        </Button>
+        
         <div className="flex-1 relative">
           <Input
             value={inputText}
             onChange={(e) => setInputText(e.target.value)}
-            placeholder="Ask me anything about your studies... 🤔✨"
-            className="pr-16 py-3 text-base rounded-2xl border-2 border-purple-200 focus:border-purple-400 bg-white/90 backdrop-blur-sm shadow-lg"
+            placeholder="Ask me anything… e.g. 'Help with a math problem' or 'Write an essay'"
+            className="pr-4 py-3 text-base rounded-full border-2 border-purple-200 focus:border-purple-400 bg-white shadow-lg min-h-[48px]"
             onKeyPress={(e) => e.key === 'Enter' && onSendMessage()}
           />
-          <div className="absolute right-4 top-1/2 transform -translate-y-1/2">
-            <Lightbulb size={20} className="text-purple-400 animate-pulse" />
-          </div>
         </div>
+        
         <Button 
           onClick={onSendMessage}
           disabled={!inputText.trim() || isTyping}
-          className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 rounded-2xl px-6 py-3 shadow-lg transform transition-all hover:scale-105"
+          className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 rounded-full w-12 h-12 p-0 shadow-lg transform transition-all duration-200 hover:scale-105 active:scale-95"
         >
-          <Send size={20} />
+          <Send size={18} />
         </Button>
       </div>
     </div>

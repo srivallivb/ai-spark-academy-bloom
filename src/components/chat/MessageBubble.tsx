@@ -18,12 +18,11 @@ interface MessageBubbleProps {
 const MessageBubble = ({ message, index }: MessageBubbleProps) => {
   return (
     <div 
-      key={message.id} 
-      className={`flex ${message.isUser ? 'justify-end' : 'justify-start'} animate-slide-up`} 
+      className={`flex ${message.isUser ? 'justify-end' : 'justify-start'} animate-fade-in`} 
       style={{ animationDelay: `${index * 0.1}s` }}
     >
       <div className={`flex items-start space-x-3 max-w-xs md:max-w-lg ${message.isUser ? 'flex-row-reverse space-x-reverse' : ''}`}>
-        <div className={`w-10 h-10 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-lg ${
+        <div className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 shadow-lg ${
           message.isUser 
             ? 'bg-gradient-to-r from-blue-500 to-purple-600' 
             : 'bg-gradient-to-r from-green-500 to-teal-600'
@@ -35,16 +34,16 @@ const MessageBubble = ({ message, index }: MessageBubbleProps) => {
           )}
         </div>
         
-        <div className={`px-6 py-4 rounded-3xl shadow-lg ${
+        <div className={`px-4 py-3 rounded-2xl shadow-lg max-w-full ${
           message.isUser 
-            ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white' 
-            : 'bg-white border-2 border-purple-100'
+            ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-br-md' 
+            : 'bg-white border border-purple-100 text-gray-800 rounded-bl-md'
         }`}>
           {message.uploadedFile && (
-            <div className="mb-3 p-3 bg-white/20 rounded-2xl flex items-center space-x-2">
+            <div className="mb-3 p-2 bg-white/20 rounded-xl flex items-center space-x-2">
               <ImageIcon size={16} className={message.isUser ? 'text-white' : 'text-gray-600'} />
               <span className={`text-xs ${message.isUser ? 'text-white' : 'text-gray-600'}`}>
-                Image uploaded: {message.uploadedFile.name}
+                Image: {message.uploadedFile.name}
               </span>
             </div>
           )}
