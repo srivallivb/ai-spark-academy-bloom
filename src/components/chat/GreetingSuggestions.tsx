@@ -12,44 +12,44 @@ const GreetingSuggestions = ({ onSuggestionClick }: GreetingSuggestionsProps) =>
       text: "Help with quadratic equations", 
       icon: Calculator, 
       emoji: "📐",
-      color: "from-blue-300 to-cyan-400" 
+      color: "from-blue-400 to-cyan-500" 
     },
     { 
       text: "Write an essay on climate change", 
       icon: PenTool, 
       emoji: "✍️",
-      color: "from-green-300 to-emerald-400" 
+      color: "from-green-400 to-emerald-500" 
     },
     { 
       text: "Learn programming basics", 
       icon: Code, 
       emoji: "💻",
-      color: "from-purple-300 to-pink-400" 
+      color: "from-purple-400 to-pink-500" 
     },
     { 
       text: "Explain photosynthesis", 
       icon: Beaker, 
       emoji: "🧪",
-      color: "from-orange-300 to-red-400" 
+      color: "from-orange-400 to-red-500" 
     },
     { 
       text: "Solve fractions", 
       icon: Calculator, 
       emoji: "🔢",
-      color: "from-indigo-300 to-purple-400" 
+      color: "from-indigo-400 to-purple-500" 
     },
     { 
       text: "Prepare for a test", 
       icon: BookOpen, 
       emoji: "📚",
-      color: "from-teal-300 to-blue-400" 
+      color: "from-teal-400 to-blue-500" 
     }
   ];
 
   return (
     <div className="text-center py-6 animate-slide-up">
       <div className="flex items-center justify-center mb-4">
-        <Brain className="text-purple-500 mr-3 animate-pulse" size={28} />
+        <Brain className="text-purple-600 mr-3 animate-pulse" size={28} />
         <h2 className="text-xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
           What can I help you with?
         </h2>

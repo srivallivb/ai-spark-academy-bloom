@@ -11,8 +11,8 @@ const FloatingSurpriseButton = ({ onClick }: FloatingSurpriseButtonProps) => {
     <button
       onClick={onClick}
       className="
-        fixed bottom-20 right-4 md:bottom-20 md:right-6
-        w-14 h-14 bg-gradient-to-r from-pink-400 to-purple-500
+        fixed bottom-32 right-4 md:bottom-20 md:right-6
+        w-14 h-14 bg-gradient-to-r from-pink-500 to-purple-600
         rounded-full shadow-xl flex items-center justify-center
         text-white transform transition-all duration-200
         hover:scale-110 active:scale-95 z-20

@@ -1,3 +1,4 @@
+
 import React, { useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { 
@@ -189,7 +190,7 @@ const Home = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-25 via-purple-25 to-pink-25 pb-20 md:pb-8">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 pb-28 md:pb-8">
       {/* Hidden file inputs */}
       <input
         ref={fileInputRef}
@@ -208,7 +209,7 @@ const Home = () => {
       />
 
       {/* Colorful Header */}
-      <header className="md:ml-64 px-4 py-4 bg-gradient-to-r from-purple-400 via-pink-400 to-orange-400 shadow-lg">
+      <header className="md:ml-64 px-4 py-4 bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500 shadow-lg">
         <div className="flex items-center justify-between">
           <div className="md:hidden flex items-center space-x-3">
             <div className="w-10 h-10 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center animate-bounce">
@@ -230,10 +231,10 @@ const Home = () => {
         </div>
       </header>
 
-      <main className="md:ml-64">
+      <main className="md:ml-64 overflow-y-auto">
         {/* Welcome Banner */}
         <section className="px-4 py-6">
-          <Card className="bg-gradient-to-r from-cyan-300 via-blue-400 to-purple-500 border-0 shadow-xl animate-fade-in">
+          <Card className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 border-0 shadow-xl animate-fade-in">
             <CardContent className="p-6">
               <div className="flex items-center space-x-4">
                 <div className="w-14 h-14 bg-white/20 rounded-full flex items-center justify-center animate-float">
@@ -252,7 +253,7 @@ const Home = () => {
 
         {/* Daily Streak Card */}
         <section className="px-4 mb-6">
-          <Card className="bg-gradient-to-r from-orange-300 to-pink-400 border-0 shadow-lg animate-slide-up">
+          <Card className="bg-gradient-to-r from-orange-400 to-pink-500 border-0 shadow-lg animate-slide-up">
             <CardContent className="p-5">
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center space-x-3">
@@ -284,7 +285,7 @@ const Home = () => {
               return (
                 <Card key={index} className="border-0 shadow-md hover:shadow-lg transition-all duration-300 animate-fade-in" style={{ animationDelay: `${index * 0.1}s` }}>
                   <CardContent className="p-4 text-center">
-                    <div className={`w-10 h-10 bg-gradient-to-r ${stat.gradient.replace('500', '400').replace('600', '500')} rounded-full flex items-center justify-center mx-auto mb-3`}>
+                    <div className={`w-10 h-10 bg-gradient-to-r ${stat.gradient} rounded-full flex items-center justify-center mx-auto mb-3`}>
                       <IconComponent className="text-white" size={18} />
                     </div>
                     <div className="text-xl font-bold text-gray-800 mb-1">{stat.number}</div>
@@ -319,9 +320,9 @@ const Home = () => {
                   {aiLearningActions[currentAiAction].subtitle}
                 </CardDescription>
                 
-                <div className="mt-4 p-3 bg-gradient-to-r from-yellow-50 to-orange-50 rounded-2xl border border-orange-200">
+                <div className="mt-4 p-3 bg-gradient-to-r from-yellow-100 to-orange-100 rounded-2xl border border-orange-200">
                   <div className="flex items-center space-x-2">
-                    <div className="w-8 h-8 bg-gradient-to-r from-yellow-300 to-orange-400 rounded-full flex items-center justify-center animate-bounce">
+                    <div className="w-8 h-8 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full flex items-center justify-center animate-bounce">
                       <Bot className="text-white" size={14} />
                     </div>
                     <p className="text-orange-700 font-medium text-xs">
@@ -332,11 +333,11 @@ const Home = () => {
               </CardHeader>
               
               <CardContent className="space-y-3 relative z-10">
-                <div className="flex items-center space-x-3 p-3 bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg">
+                <div className="flex items-center space-x-3 p-3 bg-gradient-to-r from-purple-100 to-pink-100 rounded-lg">
                   <Sparkles className="text-purple-500" size={16} />
                   <span className="text-xs text-purple-700 font-medium">AI-powered personalized experience</span>
                 </div>
-                <div className="flex items-center space-x-3 p-3 bg-gradient-to-r from-green-50 to-teal-50 rounded-lg">
+                <div className="flex items-center space-x-3 p-3 bg-gradient-to-r from-green-100 to-teal-100 rounded-lg">
                   <Heart className="text-green-500" size={16} />
                   <span className="text-xs text-green-700 font-medium">Made just for you!</span>
                 </div>
@@ -366,7 +367,7 @@ const Home = () => {
             {/* Smart Upload Feature */}
             <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 bg-gradient-to-br from-white to-purple-50 animate-slide-up" style={{ animationDelay: '0.2s' }}>
               <CardHeader className="text-center pb-4">
-                <div className="w-16 h-16 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full flex items-center justify-center mx-auto mb-4 animate-float">
+                <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4 animate-float">
                   <Camera className="text-white" size={24} />
                 </div>
                 <CardTitle className="text-lg font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
@@ -377,24 +378,24 @@ const Home = () => {
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-3">
-                <div className="flex items-center space-x-3 p-3 bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg">
+                <div className="flex items-center space-x-3 p-3 bg-gradient-to-r from-blue-100 to-purple-100 rounded-lg">
                   <Image className="text-blue-500" size={16} />
                   <span className="text-xs text-blue-700 font-medium">Upload from gallery or device</span>
                 </div>
-                <div className="flex items-center space-x-3 p-3 bg-gradient-to-r from-green-50 to-teal-50 rounded-lg">
+                <div className="flex items-center space-x-3 p-3 bg-gradient-to-r from-green-100 to-teal-100 rounded-lg">
                   <Zap className="text-green-500" size={16} />
                   <span className="text-xs text-green-700 font-medium">Get instant AI analysis</span>
                 </div>
                 <div className="space-y-2">
                   <Button 
-                    className="w-full bg-gradient-to-r from-green-400 to-teal-500 hover:opacity-90 flex items-center space-x-2 shadow-md text-sm py-2"
+                    className="w-full bg-gradient-to-r from-green-500 to-teal-600 hover:opacity-90 flex items-center space-x-2 shadow-md text-sm py-2"
                     onClick={handleGalleryUpload}
                   >
                     <Upload size={16} />
                     <span>Upload from Gallery</span>
                   </Button>
                   <Button 
-                    className="w-full bg-gradient-to-r from-blue-400 to-purple-500 hover:opacity-90 flex items-center space-x-2 shadow-md text-sm py-2"
+                    className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:opacity-90 flex items-center space-x-2 shadow-md text-sm py-2"
                     onClick={handleCameraUpload}
                   >
                     <Camera size={16} />
@@ -410,7 +411,7 @@ const Home = () => {
       {/* Floating Surprise Button */}
       <Button
         onClick={handleSurpriseMe}
-        className={`fixed bottom-20 right-4 md:bottom-8 w-12 h-12 rounded-full bg-gradient-to-r from-yellow-300 to-orange-400 hover:opacity-90 shadow-xl transition-all duration-300 z-20 ${showSurprise ? 'animate-wiggle' : 'animate-bounce-slow'}`}
+        className={`fixed bottom-28 right-4 md:bottom-8 w-12 h-12 rounded-full bg-gradient-to-r from-yellow-400 to-orange-500 hover:opacity-90 shadow-xl transition-all duration-300 z-20 ${showSurprise ? 'animate-wiggle' : 'animate-bounce-slow'}`}
         size="icon"
       >
         <Gift className="text-white" size={20} />
@@ -427,7 +428,7 @@ const Home = () => {
                 to={item.path}
                 className={`flex flex-col items-center space-y-1 px-3 py-2 rounded-2xl transition-all duration-300 ${
                   item.active
-                    ? 'bg-gradient-to-r from-purple-400 to-pink-400 text-white scale-105 -translate-y-1 shadow-md'
+                    ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white scale-105 -translate-y-1 shadow-md'
                     : 'text-gray-500 hover:text-gray-700'
                 }`}
               >

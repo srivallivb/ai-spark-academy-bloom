@@ -27,7 +27,7 @@ const ChatInput = ({ inputText, setInputText, onSendMessage, onFileUpload, isTyp
   };
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 md:left-72 bg-white/95 backdrop-blur-xl border-t border-purple-100 p-4 shadow-xl z-10">
+    <div className="fixed bottom-20 left-0 right-0 md:left-72 md:bottom-0 bg-white/95 backdrop-blur-xl border-t border-purple-200 p-4 shadow-xl z-10">
       <input
         ref={fileInputRef}
         type="file"
@@ -40,16 +40,16 @@ const ChatInput = ({ inputText, setInputText, onSendMessage, onFileUpload, isTyp
         <Button
           onClick={handleFileUpload}
           variant="outline"
-          className="flex-shrink-0 rounded-full w-12 h-12 border-2 border-purple-200 hover:border-purple-300 p-0"
+          className="flex-shrink-0 rounded-full w-12 h-12 border-2 border-purple-300 hover:border-purple-400 p-0"
         >
-          <Upload size={18} className="text-purple-500" />
+          <Upload size={18} className="text-purple-600" />
         </Button>
         
         <Button
           variant="outline"
-          className="flex-shrink-0 rounded-full w-12 h-12 border-2 border-purple-200 hover:border-purple-300 p-0"
+          className="flex-shrink-0 rounded-full w-12 h-12 border-2 border-purple-300 hover:border-purple-400 p-0"
         >
-          <Mic size={18} className="text-purple-500" />
+          <Mic size={18} className="text-purple-600" />
         </Button>
         
         <div className="flex-1 relative">
@@ -57,7 +57,7 @@ const ChatInput = ({ inputText, setInputText, onSendMessage, onFileUpload, isTyp
             value={inputText}
             onChange={(e) => setInputText(e.target.value)}
             placeholder="Ask me anything… e.g. 'Help with a math problem' or 'Write an essay'"
-            className="pr-4 py-3 text-base rounded-full border-2 border-purple-200 focus:border-purple-300 bg-white shadow-sm min-h-[48px]"
+            className="pr-4 py-3 text-base rounded-full border-2 border-purple-300 focus:border-purple-400 bg-white shadow-sm min-h-[48px]"
             onKeyPress={(e) => e.key === 'Enter' && onSendMessage()}
           />
         </div>
@@ -65,7 +65,7 @@ const ChatInput = ({ inputText, setInputText, onSendMessage, onFileUpload, isTyp
         <Button 
           onClick={onSendMessage}
           disabled={!inputText.trim() || isTyping}
-          className="bg-gradient-to-r from-purple-400 to-blue-400 hover:from-purple-500 hover:to-blue-500 rounded-full w-12 h-12 p-0 shadow-lg transform transition-all duration-200 hover:scale-105 active:scale-95"
+          className="bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 rounded-full w-12 h-12 p-0 shadow-lg transform transition-all duration-200 hover:scale-105 active:scale-95"
         >
           <Send size={18} />
         </Button>
