@@ -1,47 +1,59 @@
 
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Mail, Lock, User, Eye, EyeOff, ArrowLeft, GraduationCap, Sparkles, Star, Heart } from 'lucide-react';
+import { Mail, Lock, User, Eye, EyeOff, ArrowLeft, GraduationCap, Sparkles, Star, Heart, BookOpen, Code, Atom, Calculator, Globe, Cpu } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
 const Auth = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [currentView, setCurrentView] = useState('welcome'); // 'welcome', 'signin', 'signup', 'setup'
+  const [currentView, setCurrentView] = useState('welcome');
   const [selectedEducationLevel, setSelectedEducationLevel] = useState('');
   const [selectedInterests, setSelectedInterests] = useState<string[]>([]);
 
   const educationLevels = [
-    'Class 1-5', 'Class 6-8', 'Class 9-10',
-    'Class 11-12', 'Undergraduate', 'Graduate',
-    'Post Graduate', 'Professional'
+    'Class 6-8',
+    'Class 9-10', 
+    'Class 11-12',
+    'Undergraduate',
+    'Graduate',
+    'Post Graduate',
+    'Professional'
   ];
 
   const learningInterests = [
-    'Mathematics', 'Physics', 'Chemistry', 'Biology',
-    'Programming Languages', 'Computer Science', 'English',
-    'History', 'Geography', 'Economics', 'Social Studies',
-    'Networking', 'Data Science', 'Web Development'
+    { name: 'Mathematics', icon: Calculator, color: 'bg-blue-500' },
+    { name: 'Physics', icon: Atom, color: 'bg-purple-500' },
+    { name: 'Chemistry', icon: Sparkles, color: 'bg-green-500' },
+    { name: 'Biology', icon: Heart, color: 'bg-red-500' },
+    { name: 'Computer Science', icon: Cpu, color: 'bg-indigo-500' },
+    { name: 'Programming Languages', icon: Code, color: 'bg-orange-500' },
+    { name: 'Web Development', icon: Globe, color: 'bg-cyan-500' },
+    { name: 'Data Science', icon: BookOpen, color: 'bg-teal-500' },
+    { name: 'Networking', icon: Globe, color: 'bg-pink-500' },
+    { name: 'English Literature', icon: BookOpen, color: 'bg-amber-500' },
+    { name: 'History', icon: BookOpen, color: 'bg-yellow-500' },
+    { name: 'Geography', icon: Globe, color: 'bg-emerald-500' },
+    { name: 'Economics', icon: Calculator, color: 'bg-violet-500' },
+    { name: 'Machine Learning', icon: Cpu, color: 'bg-rose-500' }
   ];
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    // Simulate API call
     setTimeout(() => {
       setIsLoading(false);
       if (currentView === 'signup') {
         setCurrentView('setup');
       } else {
-        // Navigate to main app
         console.log('Login successful');
       }
     }, 2000);
   };
 
   const handleSetupComplete = () => {
-    // Navigate to main app
     console.log('Setup complete');
   };
 
@@ -98,16 +110,18 @@ const Auth = () => {
             <div className="space-y-4">
               <Button 
                 onClick={() => setCurrentView('signup')}
-                className="w-full py-4 rounded-2xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-semibold text-lg shadow-lg"
+                className="w-full py-4 rounded-2xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-semibold text-lg shadow-lg transform transition-all duration-200 hover:scale-105 active:scale-95"
               >
+                <User className="mr-2" size={20} />
                 Create New Account
               </Button>
 
               <Button 
                 onClick={() => setCurrentView('signin')}
                 variant="outline"
-                className="w-full py-4 rounded-2xl border-2 border-purple-200 text-purple-600 hover:bg-purple-50 font-semibold text-lg"
+                className="w-full py-4 rounded-2xl border-2 border-purple-200 text-purple-600 hover:bg-purple-50 hover:border-purple-300 font-semibold text-lg transform transition-all duration-200 hover:scale-105 active:scale-95"
               >
+                <Mail className="mr-2" size={20} />
                 Sign In
               </Button>
             </div>
@@ -172,17 +186,20 @@ const Auth = () => {
           <div className="max-w-md mx-auto">
             {/* Education Level */}
             <div className="mb-8">
-              <h3 className="text-lg font-semibold text-gray-800 mb-2">Education Level</h3>
+              <h3 className="text-lg font-semibold text-gray-800 mb-2 flex items-center">
+                <GraduationCap className="mr-2 text-purple-600" size={20} />
+                Education Level
+              </h3>
               <p className="text-gray-600 text-sm mb-4">What's your current education level?</p>
               <div className="grid grid-cols-2 gap-3">
                 {educationLevels.map((level) => (
                   <button
                     key={level}
                     onClick={() => setSelectedEducationLevel(level)}
-                    className={`px-4 py-3 rounded-2xl border text-sm font-medium transition-all ${
+                    className={`px-4 py-3 rounded-2xl border text-sm font-medium transition-all transform ${
                       selectedEducationLevel === level
-                        ? 'bg-purple-600 text-white border-purple-600'
-                        : 'bg-gray-50 text-gray-700 border-gray-200 hover:border-purple-300'
+                        ? 'bg-purple-600 text-white border-purple-600 scale-105 shadow-lg'
+                        : 'bg-gray-50 text-gray-700 border-gray-200 hover:border-purple-300 hover:scale-102'
                     }`}
                   >
                     {level}
@@ -193,35 +210,57 @@ const Auth = () => {
 
             {/* Learning Interests */}
             <div className="mb-8">
-              <h3 className="text-lg font-semibold text-gray-800 mb-2">Learning Interests</h3>
+              <h3 className="text-lg font-semibold text-gray-800 mb-2 flex items-center">
+                <Sparkles className="mr-2 text-purple-600" size={20} />
+                Learning Interests
+              </h3>
               <p className="text-gray-600 text-sm mb-4">
-                Select subjects you're interested in learning
+                Select subjects you're interested in learning (choose 3-5 topics)
               </p>
-              <div className="flex flex-wrap gap-2">
-                {learningInterests.map((interest) => (
-                  <button
-                    key={interest}
-                    onClick={() => toggleInterest(interest)}
-                    className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
-                      selectedInterests.includes(interest)
-                        ? 'bg-purple-600 text-white'
-                        : 'bg-gray-100 text-gray-700 hover:bg-purple-100'
-                    }`}
-                  >
-                    {interest}
-                  </button>
-                ))}
+              <div className="grid grid-cols-2 gap-3">
+                {learningInterests.map((interest) => {
+                  const IconComponent = interest.icon;
+                  const isSelected = selectedInterests.includes(interest.name);
+                  return (
+                    <button
+                      key={interest.name}
+                      onClick={() => toggleInterest(interest.name)}
+                      className={`p-4 rounded-2xl text-sm font-medium transition-all transform flex flex-col items-center space-y-2 ${
+                        isSelected
+                          ? `${interest.color} text-white scale-105 shadow-lg`
+                          : 'bg-gray-50 text-gray-700 hover:bg-gray-100 hover:scale-102'
+                      }`}
+                    >
+                      <IconComponent size={24} />
+                      <span className="text-center leading-tight">{interest.name}</span>
+                    </button>
+                  );
+                })}
               </div>
+              {selectedInterests.length > 0 && (
+                <div className="mt-3 text-center">
+                  <span className="text-sm text-purple-600 font-medium">
+                    {selectedInterests.length} topic{selectedInterests.length > 1 ? 's' : ''} selected
+                  </span>
+                </div>
+              )}
             </div>
 
             {/* Complete Button */}
             <Button 
               onClick={handleSetupComplete}
-              className="w-full py-4 rounded-2xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-semibold text-lg"
+              className="w-full py-4 rounded-2xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-semibold text-lg transform transition-all duration-200 hover:scale-105"
               disabled={!selectedEducationLevel || selectedInterests.length === 0}
             >
+              <Star className="mr-2" size={20} />
               Start Learning Journey
             </Button>
+            
+            {(!selectedEducationLevel || selectedInterests.length === 0) && (
+              <p className="text-center text-sm text-gray-500 mt-3">
+                Please select your education level and at least one interest to continue
+              </p>
+            )}
           </div>
         </div>
       </div>
@@ -236,7 +275,7 @@ const Auth = () => {
         <div className="absolute top-6 left-6">
           <Button 
             variant="ghost" 
-            className="text-white/80 hover:text-white hover:bg-white/10"
+            className="text-white/80 hover:text-white hover:bg-white/10 transform transition-all hover:scale-105"
             onClick={() => setCurrentView('welcome')}
           >
             <ArrowLeft className="mr-2" size={16} />
@@ -271,7 +310,7 @@ const Auth = () => {
                 <Input
                   type="text"
                   placeholder="Enter your full name"
-                  className="pl-12 py-4 rounded-2xl border-gray-200 focus:border-purple-400"
+                  className="pl-12 py-4 rounded-2xl border-gray-200 focus:border-purple-400 focus:ring-purple-400 transition-all"
                   required
                 />
               </div>
@@ -282,7 +321,7 @@ const Auth = () => {
               <Input
                 type="email"
                 placeholder="Enter your email address"
-                className="pl-12 py-4 rounded-2xl border-gray-200 focus:border-purple-400"
+                className="pl-12 py-4 rounded-2xl border-gray-200 focus:border-purple-400 focus:ring-purple-400 transition-all"
                 required
               />
             </div>
@@ -292,21 +331,40 @@ const Auth = () => {
               <Input
                 type={showPassword ? "text" : "password"}
                 placeholder={currentView === 'signin' ? "Enter your password" : "Create a strong password"}
-                className="pl-12 pr-12 py-4 rounded-2xl border-gray-200 focus:border-purple-400"
+                className="pl-12 pr-12 py-4 rounded-2xl border-gray-200 focus:border-purple-400 focus:ring-purple-400 transition-all"
                 required
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-4 top-4 text-gray-400 hover:text-gray-600"
+                className="absolute right-4 top-4 text-gray-400 hover:text-gray-600 transition-colors"
               >
                 {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
               </button>
             </div>
 
+            {currentView === 'signup' && (
+              <div className="relative">
+                <Lock className="absolute left-4 top-4 text-gray-400" size={20} />
+                <Input
+                  type={showConfirmPassword ? "text" : "password"}
+                  placeholder="Confirm your password"
+                  className="pl-12 pr-12 py-4 rounded-2xl border-gray-200 focus:border-purple-400 focus:ring-purple-400 transition-all"
+                  required
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                  className="absolute right-4 top-4 text-gray-400 hover:text-gray-600 transition-colors"
+                >
+                  {showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                </button>
+              </div>
+            )}
+
             {currentView === 'signin' && (
               <div className="text-right">
-                <a href="#" className="text-purple-600 hover:text-purple-700 text-sm font-medium">
+                <a href="#" className="text-purple-600 hover:text-purple-700 text-sm font-medium hover:underline transition-all">
                   Forgot your password?
                 </a>
               </div>
@@ -314,7 +372,7 @@ const Auth = () => {
 
             <Button 
               type="submit" 
-              className="w-full py-4 rounded-2xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-semibold text-lg"
+              className="w-full py-4 rounded-2xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-semibold text-lg transform transition-all duration-200 hover:scale-105 active:scale-95"
               disabled={isLoading}
             >
               {isLoading 
@@ -329,7 +387,7 @@ const Auth = () => {
               {currentView === 'signin' ? "Don't have an account?" : "Already have an account?"}{' '}
               <button 
                 onClick={() => setCurrentView(currentView === 'signin' ? 'signup' : 'signin')}
-                className="text-purple-600 hover:text-purple-700 font-medium"
+                className="text-purple-600 hover:text-purple-700 font-medium hover:underline transition-all"
               >
                 {currentView === 'signin' ? "Create Account" : "Sign In"}
               </button>
