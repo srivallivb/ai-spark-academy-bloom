@@ -1,10 +1,12 @@
+
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Mail, Lock, User, Eye, EyeOff, ArrowLeft, GraduationCap, Sparkles, Star, Heart, BookOpen, Code, Atom, Calculator, Globe, Cpu } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
 const Auth = () => {
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -48,7 +50,7 @@ const Auth = () => {
       if (currentView === 'signup') {
         setCurrentView('setup');
       } else {
-        console.log('Login successful');
+        navigate('/');
       }
     }, 2000);
   };
@@ -57,7 +59,7 @@ const Auth = () => {
     setIsStartingJourney(true);
     setTimeout(() => {
       console.log('Learning journey started!');
-      // Navigate to dashboard or main app
+      navigate('/');
     }, 3000);
   };
 
