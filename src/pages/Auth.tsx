@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Mail, Lock, User, Eye, EyeOff, ArrowLeft, GraduationCap, Sparkles, Star, Heart, BookOpen, Code, Atom, Calculator, Globe, Cpu } from 'lucide-react';
@@ -12,6 +11,7 @@ const Auth = () => {
   const [currentView, setCurrentView] = useState('welcome');
   const [selectedEducationLevel, setSelectedEducationLevel] = useState('');
   const [selectedInterests, setSelectedInterests] = useState<string[]>([]);
+  const [isStartingJourney, setIsStartingJourney] = useState(false);
 
   const educationLevels = [
     'Class 6-8',
@@ -54,7 +54,11 @@ const Auth = () => {
   };
 
   const handleSetupComplete = () => {
-    console.log('Setup complete');
+    setIsStartingJourney(true);
+    setTimeout(() => {
+      console.log('Learning journey started!');
+      // Navigate to dashboard or main app
+    }, 3000);
   };
 
   const toggleInterest = (interest: string) => {
@@ -246,20 +250,60 @@ const Auth = () => {
               )}
             </div>
 
-            {/* Complete Button */}
-            <Button 
-              onClick={handleSetupComplete}
-              className="w-full py-4 rounded-2xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-semibold text-lg transform transition-all duration-200 hover:scale-105"
-              disabled={!selectedEducationLevel || selectedInterests.length === 0}
-            >
-              <Star className="mr-2" size={20} />
-              Start Learning Journey
-            </Button>
+            {/* Interactive Start Learning Journey Button */}
+            <div className="relative">
+              <Button 
+                onClick={handleSetupComplete}
+                className={`w-full py-4 rounded-2xl font-semibold text-lg transform transition-all duration-300 ${
+                  isStartingJourney
+                    ? 'bg-gradient-to-r from-green-500 to-emerald-600 animate-pulse'
+                    : 'bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 hover:scale-105'
+                } text-white shadow-lg`}
+                disabled={!selectedEducationLevel || selectedInterests.length === 0 || isStartingJourney}
+              >
+                {isStartingJourney ? (
+                  <div className="flex items-center justify-center space-x-2">
+                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                    <span>Starting Your Journey...</span>
+                  </div>
+                ) : (
+                  <div className="flex items-center justify-center space-x-2">
+                    <Star className="animate-bounce" size={20} />
+                    <span>Start Learning Journey</span>
+                    <Sparkles className="animate-pulse" size={20} />
+                  </div>
+                )}
+              </Button>
+              
+              {isStartingJourney && (
+                <div className="absolute -top-12 left-1/2 transform -translate-x-1/2 text-center">
+                  <div className="bg-white/90 backdrop-blur-sm rounded-lg px-4 py-2 shadow-lg">
+                    <p className="text-sm text-purple-600 font-medium">
+                      🎉 Welcome to AIKA! 
+                    </p>
+                  </div>
+                </div>
+              )}
+            </div>
             
-            {(!selectedEducationLevel || selectedInterests.length === 0) && (
+            {(!selectedEducationLevel || selectedInterests.length === 0) && !isStartingJourney && (
               <p className="text-center text-sm text-gray-500 mt-3">
                 Please select your education level and at least one interest to continue
               </p>
+            )}
+
+            {/* Progress indicator when starting journey */}
+            {isStartingJourney && (
+              <div className="mt-6 space-y-3">
+                <div className="flex justify-center space-x-2">
+                  <div className="w-2 h-2 bg-purple-500 rounded-full animate-bounce"></div>
+                  <div className="w-2 h-2 bg-purple-500 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+                  <div className="w-2 h-2 bg-purple-500 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                </div>
+                <p className="text-center text-sm text-gray-600">
+                  Setting up your personalized learning experience...
+                </p>
+              </div>
             )}
           </div>
         </div>
